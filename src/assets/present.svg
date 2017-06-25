@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="354px" height="339px" viewBox="0 0 354 339" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>present</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,0.419578124 C116.678946,-3.61766914 203.38277,21.4803588 260.11147,75.7136618 C316.840171,129.946965 343.803014,213.515604 341,326.419578 L0,326.419578 L0,0.419578124 Z" id="path-1"></path>
+        <filter x="-2.9%" y="-2.5%" width="105.9%" height="106.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="store" transform="translate(-17.000000, -1392.000000)">
+            <g id="benefits" transform="translate(-2.000000, 1033.000000)">
+                <g id="present" transform="translate(25.000000, 367.000000)">
+                    <g transform="translate(170.598984, 163.209789) scale(-1, -1) translate(-170.598984, -163.209789) ">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#AD002E" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#979797" stroke-width="1" d="M0.5,0.902734011 L0.5,325.919578 L340.512082,325.919578 C343.22227,213.392198 316.299195,130.121515 259.765955,76.0750748 C203.225343,22.0215867 116.811908,-3.04442746 0.500000011,0.902737197 Z"></path>
+                    </g>
+                    <text id="Present---simple-line-icons" font-family="simple-line-icons" font-size="120" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="131" y="186"></tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

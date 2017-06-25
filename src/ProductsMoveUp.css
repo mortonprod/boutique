@@ -1,0 +1,39 @@
+﻿.productsUp{
+}
+.productsUp__title {
+    font-family: FjallaOne-Regular;
+    font-size: 40px;
+    color: #FFFFFF;
+}
+
+.productsUp__list {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    flex-wrap: wrap;
+    margin: auto;
+    padding-bottom: 300px;
+}
+
+
+.productsUp-enter {
+    transform:translateY(500px);
+}
+
+.productsUp-enter.productsUp-enter-active {
+    transform: translateY(0px);
+    transition: all 500ms ease-in;
+}
+
+.productsUp-leave {
+    transform: translateY(0px);
+    transition: all 500ms ease-in;
+}
+
+.productsUp-leave.productsUp-leave-active {
+    transform: translateY(500px);
+    transition: all 500ms ease-in;
+}

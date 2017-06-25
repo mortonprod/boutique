@@ -1,0 +1,52 @@
+﻿.about  {
+    position: relative;
+    background-image: linear-gradient(-180deg, #EC2A7C 47%, #D41346 100%);
+    height:1000vh;
+}
+
+.about__title {
+    width: 100%;
+}
+
+.about__entry{
+    position:fixed;
+    display:flex;
+    direction:columns;
+    justify-content:center;
+    width:100vw;
+    margin:auto;
+}
+
+.about__entry__pic{
+    height:45%;
+}
+
+.about__entry__info {
+    height: 45%;
+    width:100%;
+    font-family: FjallaOne-Regular;
+    font-size: 40px;
+    color: rgba(0,31,245,0.56);
+}
+
+.about p {
+    text-align:center;
+    width:100%;
+    font-size: 5vw;
+
+}
+
+.about__entry__info > h2 {
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 700px) {
+    .about__entry__pic {
+        height: 150px;
+    }
+    .about__entry__info {
+        height: 150px;
+        font-size: 15px;
+    }
+
+}

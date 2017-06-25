@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="280px" height="253px" viewBox="0 0 280 253" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>heart</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="store" transform="translate(-353.000000, -1718.000000)" stroke="#AD002E" stroke-width="5" fill="#AD002E">
+            <g id="heart" transform="translate(355.000000, 1720.000000)">
+                <path d="M275.5,56.7343288 C255.342969,21.8335168 238.767775,3.21536938 225.774418,0.87988645 C206.284383,-2.62333794 137.946707,36.2528271 137.946707,56.7343288 C137.946707,86.2654853 183.797805,149.854042 275.5,247.5" id="Line" transform="translate(206.723354, 124.079101) scale(-1, 1) translate(-206.723354, -124.079101) "></path>
+                <path d="M138.5,56.7343288 C118.342969,21.8335168 101.767775,3.21536938 88.7744183,0.87988645 C69.2843827,-2.62333794 0.946707238,36.2528271 0.946707238,56.7343288 C0.946707238,86.2654853 46.7978048,149.854042 138.5,247.5" id="Line"></path>
+            </g>
+        </g>
+    </g>
+</svg>

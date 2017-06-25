@@ -1,0 +1,48 @@
+﻿.chose {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    direction: vertical;
+    background-color:white;
+}
+
+.chose__svg {
+    margin: 10px;
+}
+
+.chose__link__left {
+    position: absolute;
+    left: 50vw;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+}
+
+.chose__link__right {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+}
+
+.chose__svg > svg {
+    width: 100vw;
+    height: 100vh;
+}
+
+
+@media screen and (orientation:portrait) {
+    .chose__svg {
+        width: 100vw;
+        height: auto;
+    }
+}
+
+@media screen and (orientation:landscape) {
+    .chose__svg {
+        width: auto;
+        height: 100vh;
+    }
+}

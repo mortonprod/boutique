@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="346px" height="338px" viewBox="0 0 346 338" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>people</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M85.2111435,83.5017384 C142.463198,28.768103 228.059483,0.934190245 342,0 L342,326 L1,326 C-0.111291823,219.068128 27.9590893,138.235374 85.2111435,83.5017384 Z" id="path-1"></path>
+        <filter x="-2.9%" y="-2.5%" width="105.9%" height="106.1%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="store" transform="translate(0.000000, -1025.000000)">
+            <g id="benefits" transform="translate(-2.000000, 1033.000000)">
+                <g id="people">
+                    <g id="Rectangle-3" transform="translate(171.484130, 163.000000) scale(1, -1) translate(-171.484130, -163.000000) ">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#F198B0" fill-rule="evenodd" xlink:href="#path-1"></use>
+                        <path stroke="#979797" stroke-width="1" d="M1.49503739,325.5 L341.5,325.5 L341.5,0.504290314 C227.928536,1.51536388 142.621676,29.3083252 85.5566585,83.8631514 C28.5024128,138.40768 0.476675078,218.942324 1.49503739,325.5 Z"></path>
+                    </g>
+                    <text id="people---simple-line-icons" font-family="simple-line-icons" font-size="120" font-weight="normal" fill="#FFFFFF">
+                        <tspan x="132" y="190"></tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

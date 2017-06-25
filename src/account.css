@@ -1,0 +1,61 @@
+﻿.account {
+    background-image:url(./assets/backgroundContact.png);
+    background-repeat:no-repeat;
+    background-size:cover;
+    height:110vh;
+    width:auto;
+}
+.account__header {
+    font-family: .SFNSDisplay;
+    font-size: 48px;
+    color: #FFFFFF;
+    text-align:center;
+    width:100vw;
+
+}
+
+.account__header > h1 {
+    margin: 0;
+    font-family: Lobster-Regular;
+    font-size: 60px;
+    color: #DD0900;
+}
+.account__form {
+    width: 300px;
+    margin: auto;
+    margin-top:20vh;
+}
+
+.account__form__email, .account__form__password {
+    text-align:center;
+}
+
+.account__form__email, .account__form__password > h2 {
+    font-family: Lobster-Regular;
+    color: #DD0900;
+    color: rgba(0,31,245,0.56);
+}
+
+.account__form__submit {
+    background-image: linear-gradient(-225deg, #90278E 0%, #EC1C24 100%);
+    border: 0;
+    font-family: .SFNSText;
+    font-size: 12px;
+    color: #FFFFFF;
+    line-height: 18px;
+}
+
+input {
+    width: 100%;
+    opacity: 0.4;
+    background: #FFFFFF;
+    border-radius: 3px;
+}
+
+input:focus {
+    opacity: 1;
+}
+
+input:hover {
+    opacity: 1;
+}

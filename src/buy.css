@@ -1,0 +1,123 @@
+﻿.buy {
+    background-image: linear-gradient(-180deg, #ED145B 47%, #D41346 100%);
+    border: 1px solid #979797;
+    min-height:110vh;
+    overflow:auto;
+}
+
+.buy__underline {
+    width: 100%;
+}
+
+.buy__info {
+    float: right;
+    width: 65vw;
+    position: relative;
+    text-align: center;
+}
+
+.buy__info__image {
+    width: 100%;
+}
+
+.buy__image {
+    float: left;
+    width: 30vw;
+    height: auto;
+    margin: 5px;
+    border: 1px solid #979797;
+    box-shadow: 0 2px 4px 2px rgba(0,0,0,0.50);
+}
+
+.buy__info__content{
+    position:absolute;
+    text-align:center;
+    margin:auto;
+    top:20%;
+    left:15%;
+    width:70%;
+}
+
+
+.buy__info__content h1, h2, h3, h4, p {
+    font-family: Lobster-Regular;
+    color: #FFFFFF;
+    margin: 5px;
+}
+
+.buy__info__content  h1 {
+    font-size: 5vw;
+
+}
+
+.buy__info__content  h2 {
+    font-size: 4vw;
+}
+
+.buy__info__content  h3 {
+    font-size: 3vw;
+}
+
+.buy__info__content p {
+    font-size: 2vw;
+}
+
+
+.buy__button {
+    background: url(./assets/buyButton.svg);
+    background-repeat: no-repeat;
+    width: 110px;
+    height: 70px;
+    border: none;
+    transform: scale(1);
+    transition: all 1s forwards;
+}
+
+.buy__button:hover {
+    transform:scale(1.2);
+    transition:all 1s forwards;
+}
+
+
+@media screen and (max-width: 700px) {
+    .buy__image {
+        margin-left: 0;
+        margin-top: 0px;
+        width: 100%;
+        height: auto;
+    }
+
+    .buy__underline {
+        position:relative;
+        width: 100%;
+    }
+
+    .buy__button {
+        margin-left: 0px;
+
+    }
+    .buy__info {
+        width: 100vw;
+    }
+    .buy__info__image {
+        width: 95%;
+    }
+    .buy__info__content h1 {
+        font-size: 6vw;
+    }
+
+    .buy__info__content h2 {
+        font-size: 5vw;
+    }
+
+    .buy__info__content h3 {
+        font-size: 4vw;
+    }
+
+    .buy__info__content p {
+
+        font-size: 3vw;
+    }
+}
+
+

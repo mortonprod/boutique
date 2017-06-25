@@ -1,0 +1,108 @@
+﻿.product {
+    position: relative;
+    /*height: 200px;*/
+    margin: 5px;
+    overflow: hidden;
+}
+
+
+
+
+.product__image {
+    border: solid;
+    left: 0;
+    top: 0;
+    height: 200px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.product__name {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    font-family: FjallaOne-Regular;
+    font-weight: bold;
+    color: orangered;
+    margin: auto;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.product__name > img {
+    position:relative;
+    width: 90%;
+    top:-15px;
+}
+
+.product__name > h3 {
+    position: relative;
+    width: 60%;
+    font-size: 30px;
+    font-weight:600;
+    margin-top: 10px;
+}
+
+.product__description {
+    position: absolute;
+    top: 40%;
+    margin: 0;
+    width: 90%;
+    left: 5%;
+    font-family: 'Bubbler One', sans-serif;
+    color: white;
+    background-image: linear-gradient(-225deg, #90278E 0%, #EC1C24 100%);
+    font-size: 20px;
+    opacity: 0.9;
+    border-radius: 10px;
+    transition: opacity 1s;
+}
+
+.product:hover > .product__description {
+    opacity: 0;
+}
+
+.product:hover > .product__name {
+    opacity: 0;
+}
+
+@keyframes blink{
+    0%{
+      transform:scale(1);
+      opacity:0.5;  
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+.product:hover > .product__link {
+    animation:blink 2s infinite;
+}
+
+.product__link {
+    position: absolute;
+    bottom: 5%;
+    width: 20%;
+    margin: auto;
+    left: 40%;
+    font-weight: bold;
+    font-size: 20px;
+    border: 1px solid #FFFFFF;
+    font-family: .SFNSText;
+    font-size: 12px;
+    color: #FFFFFF;
+    background-image: linear-gradient(-225deg, #90278E 0%, #EC1C24 100%);
+    border-radius: 3px;
+    opacity:0.7;
+}
+
+.product .product__link:hover {
+    opacity: 1;
+    animation:none;
+}
