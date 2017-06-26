@@ -79,7 +79,9 @@ export default class Nav extends Component{
             acc = (
                 <article className="nav__box__links__account">
                   <h3> Welcome {this.props.auth.userProfile.name} </h3>
-                  <img src={this.props.auth.userProfile.picture} alt="profile" />
+                  <Link to={"/account"}>
+                    <img src={this.props.auth.userProfile.picture} alt="profile" />
+                  </Link>
                 </article>
 
             )

@@ -21,27 +21,29 @@ export default class ProductsMoveUp extends Component {
         this.state = {num:end}
     }
     scroll(event){
-        let space = this.parentDiv.getBoundingClientRect().bottom - window.innerHeight;
-        console.log("space: " +  space);
-        let num = this.getNumBoxes(); 
-        if(space < 10 && this.props.data.length - this.state.num > 0){//If more data show it.
-            if(this.props.data.length - this.state.num > num){//If more data than group then show group number
-                for(let i = 0; i < num; i++ ){
-                    setTimeout(function(){
-                        this.setState({num:this.state.num + 1});
-                    }.bind(this),500*i);
+        if(this.parentDiv !== null){
+	        let space = this.parentDiv.getBoundingClientRect().bottom - window.innerHeight;
+	        console.log("space: " +  space);
+	        let num = this.getNumBoxes(); 
+	        if(space < 10 && this.props.data.length - this.state.num > 0){//If more data show it.
+	            if(this.props.data.length - this.state.num > num){//If more data than group then show group number
+	                for(let i = 0; i < num; i++ ){
+	                    setTimeout(function(){
+	                        this.setState({num:this.state.num + 1});
+	                    }.bind(this),500*i);
 
-                }
-            }else if(space < 500 && this.props.data.length - this.state.num > 0 ) {//Only take what is left
-                let finalPictures = this.props.data.length - this.state.num;
-                for(let i = 0; i < finalPictures; i++ ){
-                    setTimeout(function(){
-                        this.setState({num:this.state.num + 1});
-                    }.bind(this),500*i);
-                }
-            }else{
-                console.log("Got them all.")
-            }
+	                }
+	            }else if(space < 500 && this.props.data.length - this.state.num > 0 ) {//Only take what is left
+	                let finalPictures = this.props.data.length - this.state.num;
+	                for(let i = 0; i < finalPictures; i++ ){
+	                    setTimeout(function(){
+	                        this.setState({num:this.state.num + 1});
+	                    }.bind(this),500*i);
+	                }
+	            }else{
+	                console.log("Got them all.")
+	            }
+	        }
         }
 
     }

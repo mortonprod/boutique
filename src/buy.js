@@ -6,13 +6,19 @@ import {
   Switch
 } from 'react-router-dom';
 import Vivus from 'vivus';
+import PaypalExpressBtn from 'react-paypal-express-checkout';
 import "./buy.css";
-
 import linesUnder from "./assets/linesUnderline.svg";
 import semi from "./assets/heart.svg";
 
 import dress from './assets/tamara-bellis-256701.jpg'
 let isMounted = false;
+
+const client = {
+    sandbox:    'AQ-KJEquFtNuzV9J4Y9IDXanFPcwymMaXvzY2EXWlDYSga_xjhvHDpIckOOpDMDW7ipW8erQgqodx1Fw'
+}
+
+
 export default class Buy extends Component {
     constructor(){
         super();
@@ -81,6 +87,7 @@ export default class Buy extends Component {
 		                {this.props.location.state.price}
 		            </h3>
 	                <button onClick = {()=>{}} className={"buy__button" }> </button>
+                    <PaypalExpressBtn env={'sandbox'} client={client} currency={'USD'} total={5.00} />
                 </div>
             )
         }

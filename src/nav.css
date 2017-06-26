@@ -110,7 +110,11 @@ header{
     font-family: 'Mogra', cursive;
     color: white;
 }
-.nav__box__links__account{
+.nav__box__links__account > a > img{
+    margin-top:10px;
+    margin-right:10px;
+    width:40px;
+    height:40px;
 
 }
 .nav__box__links__account__social {
