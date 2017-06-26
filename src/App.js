@@ -8,10 +8,9 @@ import {
 import * as _ from "lodash";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 
+import Auth from "./auth";
 
-
-
-import Chose from "./chose"
+import Chose from "./chose";
 
 import Store from "./store";
 
@@ -26,10 +25,20 @@ import Account from "./account";
 
 import './App.css';
 
+
+const auth = new Auth();
+
+const handleAuthentication = (nextState, replace) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication();
+  }
+}
 class App extends Component {
   constructor(){
     super();
     this.state = {isDown:false,isNavButton:false};
+  }
+  componentWillMount(){
   }
 
   render() {
@@ -39,7 +48,14 @@ class App extends Component {
         <div className="app">
 	    <Fade>
 	        <Switch>
-	            <Route exact path="/" component={Store}/>
+	            <Route exact path="/" 
+                    render={
+                        (props)=>{
+                            handleAuthentication(props);
+                            return <Store {...props}/>
+                        }
+                    }
+                />
 	            <Route path="/about" component={About}/>
                 <Route path="/buy" component={Buy}/>
                 <Route path="/more" component={Chose}/>
@@ -47,7 +63,7 @@ class App extends Component {
                 <Route path="/account" component={Account}/>
 	        </Switch>
 	    </Fade>
-        <Nav threshold={900}/>
+        <Nav auth={auth} threshold={700}/>
         </div>
       </Router>
 
