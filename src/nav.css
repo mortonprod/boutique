@@ -99,7 +99,8 @@ header{
 }
 
 .nav__box__links > article:nth-child(2) {
-    margin-left:200px;
+    margin-left:30%;
+    margin-right:0;
 }
 .nav__box__links > article > h3 {
     margin-left: 0;
@@ -110,12 +111,18 @@ header{
     margin-top:20px;
 }
 
+.nav__box__links > article:nth-child(2) {
+    display:flex;
+    flex-direction:row;
+
+}
+
 
 .nav__box__links__routes {
     margin: auto;
     margin-left: 0;
     margin-right: 0;
-    margin-top:23px;
+    margin-top:25px;
     padding: 0;
     color: #DD0900;
 }
@@ -135,15 +142,73 @@ header{
 }
 
 .nav__box__links__social{
+    position:relative;
     padding:0;
+    width:50px;
+    height:50px;
+    display:inline;
 }
 .nav__box__links__social img {
+    position:absolute;
     width: 40px;
+    left:0;
+    top:0;
+    opacity:0;
 }
 
-.nav__box__links__social img:hover {
-    width: 40px;
-    animation: smallBig 0.5s infinite;
+.nav__box__links__social img:nth-child(1){
+    opacity: 1;
+}
+@keyframes blink0{
+    0%{
+        opacity:1;
+    }
+    20%{
+        opacity:0;
+    }
+    100%{
+        opacity:0;
+    }
+}
+@keyframes blink1 {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0;
+    }
+}
+
+@keyframes blink2 {
+    60% {
+        opacity: 0;
+    }
+
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.nav__box__links__social:hover img:nth-child(1) {
+    animation:blink0 1.5s infinite;
+}
+
+.nav__box__links__social:hover img:nth-child(2) {
+    animation: blink1 1.5s infinite;
+}
+
+.nav__box__links__social:hover img:nth-child(3) {
+    animation: blink2 1.5s infinite;
 }
 
 .nav__box__links__social > li {
@@ -153,13 +218,10 @@ header{
 }
 
 .nav__box__links__routes > li:before {
-    content: '\25BA';
+    /*content: '\25BA';*/
 }
 
 @media screen and (max-width: 1100px) {
-    .nav__box__links > article:nth-child(2) {
-        margin-left: 10px;
-    }
 }
 
 @media screen and (max-width: 900px) {
@@ -180,11 +242,6 @@ header{
         flex-direction: column;
         margin-left:50px;
     }
-    .nav__box__links > article:nth-child(2) {
-        display: flex;
-        flex-direction: column;
-        margin-left: 50px;
-    }
     .nav__box__links {
         display: flex;
         width: 100%;
@@ -203,6 +260,9 @@ header{
     .nav__full {
         transition: all 1s;
         opacity: 0.75;
+    }
+    .nav__box__links > article:nth-child(2) {
+        margin-left: 50px;
     }
 }
 
