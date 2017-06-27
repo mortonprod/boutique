@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "auth0-js": "^8.8.0",
+    "axios": "^0.16.2",
     "history": "^4.6.3",
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
@@ -26,7 +27,8 @@
   "reactSnapshot": {
     "include": [
       "/",
-      "/about"
+      "/about",
+			"/account"
     ],
     "exclude": [
       "/buy"
