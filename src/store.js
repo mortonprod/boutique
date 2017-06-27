@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import lines from './assets/lines.svg';
 import storeSvg from './assets/store.svg';
 import Helmet from 'react-helmet';
-
+import ProductSearch from "./ProductSearch";
 
 import Vivus from 'vivus';
 
@@ -58,25 +58,16 @@ export default class Store extends Component {
         }
 	    return (
 		    <section className="store">
-   							 <Helmet>
-       							 <title>Boutique Store</title>
-        						<meta name="description" content="Online boutique store based in Helensburgh " />
-    						</Helmet>
+				 <Helmet>
+					 <title>Boutique Store</title>
+					<meta name="description" content="Online boutique store based in Helensburgh " />
+				</Helmet>
                 {storeTitle}  
                 <div className="store__content">
-                <header>
-                    <h1>Check out the latest offers</h1>
-                </header>
-                <Products title={""} childWidth={220} data={getData().offers}/>
-                <Products title={"What other were interested in"} childWidth={220} data={getData().data0}/>
-                <Products title={"Underwear"} childWidth={220} data={getData().data1}/>
-                <Products title={"Accessories"} childWidth={220} data={getData().data2}/>
-                <Products title={"Clothes"} childWidth={220} data={getData().data3}/>
-                <ProductsMoveUp 
-                    title={"Everything We Have"} 
-                    childWidth={220} 
-                    data={getData().data}
-                />
+	                <header>
+	                    <h1>Check out the latest offers</h1>
+	                </header>
+                    <ProductSearch/>
                 </div>
 		    </section>
 	    )
@@ -86,3 +77,15 @@ export default class Store extends Component {
 Store.defaultProps = {
     speed:0.5
 }
+
+
+//                <Products title={""} childWidth={220} data={getData().offers}/>
+//                <Products title={"What other were interested in"} childWidth={220} data={getData().data0}/>
+//                <Products title={"Underwear"} childWidth={220} data={getData().data1}/>
+//                <Products title={"Accessories"} childWidth={220} data={getData().data2}/>
+//                <Products title={"Clothes"} childWidth={220} data={getData().data3}/>
+//                <ProductsMoveUp 
+//                    title={"Everything We Have"} 
+//                    childWidth={220} 
+//                    data={getData().data}
+//                />
