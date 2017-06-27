@@ -77,12 +77,14 @@ export default class Nav extends Component{
             )
         }else{
             acc = (
-                <article className="nav__box__links__account">
-                  <h3> Welcome {this.props.auth.userProfile.name} </h3>
-                  <Link to={"/account"}>
-                    <img src={this.props.auth.userProfile.picture} alt="profile" />
-                  </Link>
-                </article>
+                <Link to={"/account"}>
+	                <article className="nav__box__links__account">
+	                  <h3> Welcome {this.props.auth.userProfile.name} </h3>
+	                  <Link to={"/account"}>
+	                    <img src={this.props.auth.userProfile.picture} alt="profile" />
+	                  </Link>
+	                </article>
+                </Link>
 
             )
         }
