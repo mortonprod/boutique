@@ -5,9 +5,12 @@ export default class Account extends Component{
   isAdmin = true;
   constructor(){
     super();
-    this.state = {products:null,categories:null}
+    this.state = {products:null,categories:null,productsLook:null}
     axios.get('/categories').then((res) => {
-        this.setState({products:this.state.products,categories:res.data});
+        this.setState({products:this.state.products,categories:res.data,productsLook:this.state.productsLook});
+    });
+    axios.get('/account').then((res) => {
+        this.setState({products:this.state.products,categories:this.state.categories,productsLook:res.data});
     });
   }
  
@@ -25,6 +28,19 @@ export default class Account extends Component{
     
   }
   render() {
+    let prodLook = null;
+    if(this.state.productsLook !== null){
+        let listItemsLook = this.state.productsLook.map((item) =>
+            <li>
+                {item}
+            </li>
+        );
+        prodLook = (
+	        <ul>
+	            {listItemsLook}
+	        </ul>
+        )
+    }
     let prod = null;
     if(this.state.products !== null){
         let listItems = this.state.products.map((item) =>
@@ -97,6 +113,7 @@ export default class Account extends Component{
             <div>
               <h2> Nickname</h2>
               <h3>{this.props.auth.userProfile.nickname}</h3>
+              {prodLook}
             </div>
         </div>
         )

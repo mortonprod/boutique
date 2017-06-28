@@ -67,6 +67,16 @@ export default class Store extends Component {
 	                <header>
 	                    <h1>Check out the latest offers</h1>
 	                </header>
+                    <Products title={""} childWidth={220} data={getData().offers}/>
+                <Products title={"What other were interested in"} childWidth={220} data={getData().data0}/>
+                <Products title={"Underwear"} childWidth={220} data={getData().data1}/>
+                <Products title={"Accessories"} childWidth={220} data={getData().data2}/>
+                <Products title={"Clothes"} childWidth={220} data={getData().data3}/>
+                <ProductsMoveUp 
+                    title={"Everything We Have"} 
+                    childWidth={220} 
+                    data={getData().data}
+                />
                     <ProductSearch/>
                 </div>
 		    </section>
@@ -79,13 +89,4 @@ Store.defaultProps = {
 }
 
 
-//                <Products title={""} childWidth={220} data={getData().offers}/>
-//                <Products title={"What other were interested in"} childWidth={220} data={getData().data0}/>
-//                <Products title={"Underwear"} childWidth={220} data={getData().data1}/>
-//                <Products title={"Accessories"} childWidth={220} data={getData().data2}/>
-//                <Products title={"Clothes"} childWidth={220} data={getData().data3}/>
-//                <ProductsMoveUp 
-//                    title={"Everything We Have"} 
-//                    childWidth={220} 
-//                    data={getData().data}
-//                />
+

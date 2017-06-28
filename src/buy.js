@@ -10,7 +10,7 @@ import PaypalExpressBtn from 'react-paypal-express-checkout';
 import "./buy.css";
 import linesUnder from "./assets/linesUnderline.svg";
 import semi from "./assets/heart.svg";
-
+import axios from 'axios';
 import dress from './assets/tamara-bellis-256701.jpg'
 let isMounted = false;
 
@@ -25,6 +25,20 @@ export default class Buy extends Component {
     }
     componentDidMount(){
         isMounted = true;
+        //If we have a user and there have search for something then store it.
+        if(typeof this.props.auth !== "undefined" && this.props.auth.userProfile !== null){
+            axios.post('/account', {
+                name: this.props.auth.userProfile.name,
+                title:[this.props.location.state.title]
+
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
     }
     render() {
         let  unter = null;

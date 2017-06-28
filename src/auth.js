@@ -17,7 +17,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'mortonprod.eu.auth0.com',
     clientID: 'i92K1aH4gGRkkJagDPAAIjH0xmCX4A8S',
-    redirectUri: 'http://localhost:3000',
+    redirectUri: 'http://localhost:4000',
     audience: 'https://mortonprod.eu.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile'
@@ -76,7 +76,7 @@ export default class Auth {
   isAuthenticated() {
     // Check whether the current time is past the 
     // access token's expiry time
-    if(typeof localStorage !== "undefined"){
+    if(typeof localStorage !=="undefined"){
 	    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
 	    return new Date().getTime() < expiresAt;
     }

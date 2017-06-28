@@ -40,7 +40,7 @@ class App extends Component {
   }
   componentWillMount(){
   }
-
+  //Note buy route pass props so each product can pass information to it through location state..
   render() {
     return (
 
@@ -57,10 +57,10 @@ class App extends Component {
                     }
                 />
 	            <Route path="/about" component={About}/>
-                <Route path="/buy" component={Buy}/>
+                <Route path="/buy" render={(props) => {return <Buy auth={auth} {...props}/>}}/>
                 <Route path="/more" component={Chose}/>
                 <Route path="/headshop" component={Eye}/>
-                <Route path="/account" component={Account}/>
+                <Route path="/account" render={() => {return <Account auth={auth}/>}}/>
 	        </Switch>
 	    </Fade>
         <Nav auth={auth} threshold={700}/>
@@ -70,7 +70,7 @@ class App extends Component {
     );
   }
 }
-
+//<Route path="/buy" component={Buy}/>
 export default App;
 
 class Fade extends Component {
