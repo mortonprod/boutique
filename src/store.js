@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import lines from './assets/lines.svg';
 import storeSvg from './assets/store.svg';
 import Helmet from 'react-helmet';
-import ProductSearch from "./ProductSearch";
+import ProductSearch from "./productSearch";
 
 import Vivus from 'vivus';
 

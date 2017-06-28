@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
-import ProductsMoveUp from "./productsMoveUp";
+import ProductsMoveUp from "./ProductsMoveUp";
 import "./productSearch.css";
 export default class ProductSearch extends Component {
     constructor(){
