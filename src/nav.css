@@ -11,6 +11,9 @@
         transform: scale(1);
     }
 }
+.nav{
+    z-index:100;
+}
 header{
     margin-right:50px;
 }
@@ -52,6 +55,10 @@ header{
 
 .nav__box a {
     color: white;
+}
+
+.nav__box > a {
+    margin-top: 15px;
 }
 
 .nav--show {
@@ -110,7 +117,19 @@ header{
     font-family: 'Mogra', cursive;
     color: white;
 }
+
+.nav__box__links__account {
+    width:300px;
+    display:flex;
+}
+
+.nav__box__links__account > h3 {
+    margin-right:10px;
+}
+
 .nav__box__links__account > a > img{
+    position:relative;
+    bottom:10px;
     margin-top:10px;
     margin-right:10px;
     width:40px;
