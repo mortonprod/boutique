@@ -3,6 +3,7 @@
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 import * as _ from "lodash";
 import Product from "./Product";
+import axios from 'axios';
 import "./Products.css";
 export default class Products extends Component {
     data = null;
@@ -15,6 +16,9 @@ export default class Products extends Component {
             end:100,
             direction:""
         }
+        axios.get(this.props.api + "/0" +  "/" + this.props.defaultNum).then((res) => {
+            
+       });
         this.data = _.clone(this.props.data);
     }
     componentDidMount() {

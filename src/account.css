@@ -116,6 +116,12 @@ hr.styleLine:after {
     margin:10px;
 }
 
+account__admin__products > ul > li > img {
+    width:100px;
+    height:100px;
+    display:inline;
+}
+
 .account__admin input, textarea {
     opacity: 0.25;
     background-image: linear-gradient(-180deg, #F754B3 100%, #EC2A7C 100%);

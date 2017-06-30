@@ -9,12 +9,24 @@ export default class Account extends Component{
   isAdmin = true;
   constructor(){
     super();
-    this.state = {file:null,info:null,num:null,des:null,name:null,cat:null,products:null,categories:null,productsLook:null,productsBought:null}
+   this.state = {
+        file:null,
+        info:null,
+        num:null,
+        des:null,
+        name:null,
+        cat:null,
+        products:null,
+        categories:null,
+        productsLook:null,
+        productsBought:null,
+        message:[]
+    }
     axios.get('/categories').then((res) => {
         this.setState({products:this.state.products,categories:res.data,productsLook:this.state.productsLook,productsBought:this.state.productsBought});
     });
     axios.get('/account').then((res) => {
-        this.setState({products:this.state.products,categories:this.state.categories,productsLook:res.data[0],productsBought:res.data[1]});
+        this.setState({products:this.state.products,categories:this.state.categories,productsLook:null,productsBought:null});
     });
   }
  
@@ -35,17 +47,19 @@ export default class Account extends Component{
   }
   ///Can't just use form to pass to server. Must collect values from each input and then send to server on submit
   onFormSubmit(event){
+    this.setState({message:[]});
     event.preventDefault();
     let formData = new FormData();
     formData.append('name', this.state.name);
+    formData.append('description', this.state.des);
     formData.append('info', this.state.info);
     formData.append('number', this.state.num);
-    formData.append('des', this.state.des);
     formData.append('file', this.state.file);
     formData.append('categories', this.state.cat);
     axios.post('/product',formData,{ 'content-type': 'multipart/form-data' })
-    .then(function (response) {
-        console.log(response);
+    .then((res) => {
+        this.setState({message:res.data});
+        console.log(res.data);
     })
     .catch(function (error) {
         console.log(error);
@@ -119,7 +133,7 @@ export default class Account extends Component{
     if(this.state.products !== null){
         let listItems = this.state.products.map((item) =>
             <li>
-                {item["_id"]}
+                <span>{item["name"]}</span> <img src={item["file"]}/>
             </li>
         );
         prod = (
@@ -135,6 +149,7 @@ export default class Account extends Component{
             <button onClick={this.getProducts.bind(this)} >Get Products</button>
         )
     }
+
     let admin = null;
     if(this.isAdmin){
         let cat = null;
@@ -153,20 +168,26 @@ export default class Account extends Component{
 	            </div>
 	        )
         }
+        let message = this.state.message.map((item) =>
+	        <h4>
+	            {item}
+	        </h4>
+        );
         admin = (
         <article className="account__admin">
             <h1>Add A Product</h1>
+            {message}
 	        <form className="account__admin__addProducts" onSubmit={this.onFormSubmit.bind(this)}>
-	            <h2 for="productName">Product Name</h2>
+	            <h2>Product Name</h2>
 	            <input placeholder="Shirt" type="text" onChange={this.onChangeName.bind(this)}/>
-	            <h2 for="productDescription">Product Description</h2>   
+	            <h2>Product Description</h2>   
 	            <textarea placeholder="A blue shirt with stripes" rows="4" cols="50" type="text" onChange={this.onChangeDes.bind(this)}/>
                 {cat}
-	            <h2 for="productNumber">Number of Products</h2>
+	            <h2>Number of Products</h2>
 	            <input placeholder="10" type="number" onChange={this.onChangeNumber.bind(this)}/>
-	            <h2 for="productInfo">Product Info</h2>
+	            <h2>Product Info</h2>
 	            <textarea placeholder="size:10;colour:blue" rows="2" cols="50" type="text" onChange={this.onChangeInfo.bind(this)}/>      
-	            <h2 for="productFile">Select your image</h2>
+	            <h2>Select your image</h2>
 	            <input type="file" accept="image/*" onChange={this.onChangeFile.bind(this)}/>
                 <button type="submit">Upload</button>
 	        </form>
@@ -178,6 +199,9 @@ export default class Account extends Component{
                 <input placeholder="Shirt" type="text" name="productCategory"/>
                 <button type="submit">Upload Category</button>
             </form>
+            <br/>
+            <hr className="styleLine"/>
+            <br/>
             <h1>Product List</h1>
             {prod}
         </article>
