@@ -16,11 +16,13 @@ export default class Account extends Component{
         des:null,
         name:null,
         cat:null,
+        catAdd:null,
         products:null,
         categories:null,
         productsLook:null,
         productsBought:null,
-        message:[]
+        message:[],
+        messageCategory:[]
     }
     axios.get('/categories').then((res) => {
         this.setState({products:this.state.products,categories:res.data,productsLook:this.state.productsLook,productsBought:this.state.productsBought});
@@ -65,6 +67,22 @@ export default class Account extends Component{
         console.log(error);
     });
   }
+  onFormCategorySubmit(event){
+    this.setState({messageCategory:[]});
+    event.preventDefault();
+    axios.post('/category',{productCategory:this.state.catAdd})
+    .then((res) => {
+        this.setState({messageCategory:res.data});
+        console.log(res.data);
+        axios.get('/categories').then((res) => {///Must update categories 
+            this.setState({products:this.state.products,categories:res.data,productsLook:this.state.productsLook,productsBought:this.state.productsBought});
+        });
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+  }
   onChangeFile(e) {
     this.setState({file:e.target.files[0]})
   }
@@ -89,6 +107,9 @@ export default class Account extends Component{
 	    }
     }
       this.setState({cat:value})
+  }
+  onChangeCatAdd(e){
+      this.setState({catAdd:e.target.value})
   }
   render() {
     let  lines = null;
@@ -168,11 +189,20 @@ export default class Account extends Component{
 	            </div>
 	        )
         }
-        let message = this.state.message.map((item) =>
-	        <h4>
-	            {item}
-	        </h4>
-        );
+        let message = this.state.message.map((item) =>{
+            return (
+		        <h4>
+		            {item}
+		        </h4>
+            )
+        });
+        let messageCategory = this.state.messageCategory.map((item) => {
+            return (
+	            <h4>
+	                {item}
+	            </h4>
+            )
+        });
         admin = (
         <article className="account__admin">
             <h1>Add A Product</h1>
@@ -194,9 +224,10 @@ export default class Account extends Component{
             <br/>
             <hr className="styleLine"/>
             <br/>
-            <form className="account__admin__addCategory" action="/category" method="post" enctype="application/x-www-form-urlencoded">
+            <form className="account__admin__addCategory" onSubmit={this.onFormCategorySubmit.bind(this)}>
                 <h2 for="productCategory">Add Category</h2>
-                <input placeholder="Shirt" type="text" name="productCategory"/>
+                {messageCategory}
+                <input placeholder="Shirt" type="text" name="productCategory" onChange={this.onChangeCatAdd.bind(this)}/>
                 <button type="submit">Upload Category</button>
             </form>
             <br/>

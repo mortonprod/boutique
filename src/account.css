@@ -133,6 +133,16 @@ account__admin__products > ul > li > img {
     width: 50%;
 }
 
+.account__admin >h4 {
+    color:black;
+
+}
+
+.account__admin__addCategory > h4 {
+    color: black;
+}
+
+
 .account__admin input::placeholder, textarea::placeholder {
     color: white;
 }
