@@ -7,8 +7,8 @@ import "./account.css"
 let isMounted = false;
 export default class Account extends Component{
   isAdmin = true;
-  constructor(){
-    super();
+  constructor(props){
+   super(props);
    this.state = {
         file:null,
         info:null,
@@ -18,18 +18,38 @@ export default class Account extends Component{
         cat:null,
         catAdd:null,
         products:null,
+        isEditShow:[],
         categories:null,
         productsLook:null,
         productsBought:null,
         message:[],
-        messageCategory:[]
+        messageCategory:[],
+        editName:null,
+        editDescription:null,
+        editInfo:null,
+        editCategories:null,
+        editNumber:null,
+        editFile:null,
+        editMessage:[]
+
     }
     axios.get('/categories').then((res) => {
         this.setState({products:this.state.products,categories:res.data,productsLook:this.state.productsLook,productsBought:this.state.productsBought});
     });
-    axios.get('/account').then((res) => {
-        this.setState({products:this.state.products,categories:this.state.categories,productsLook:null,productsBought:null});
-    });
+    if(typeof props.auth !== "undefined" && props.auth.userProfile !==null){
+	    axios.get('/account').then((res) => {
+	        this.setState({products:this.state.products,categories:this.state.categories,productsLook:null,productsBought:null});
+	    });
+    }
+    if(this.isAdmin){
+	    axios.get('/products').then(res => {
+	        let show = []
+	        for(let i=0; i < res.data.length; i++){
+	            show.push(false);
+	        }
+	        this.setState({ products: res.data,isEditShow:show });
+	    });
+    }
   }
  
   componentWillMount() {
@@ -39,13 +59,6 @@ export default class Account extends Component{
     isMounted = true; 
   }
   getProducts(){
-    if(this.state.products === null){
-		axios.get('/products').then(res => {
-			this.setState({ products: res.data });
-		});
-    }else{
-        this.setState({ products: null }); 
-    }
   }
   ///Can't just use form to pass to server. Must collect values from each input and then send to server on submit
   onFormSubmit(event){
@@ -61,6 +74,26 @@ export default class Account extends Component{
     axios.post('/product',formData,{ 'content-type': 'multipart/form-data' })
     .then((res) => {
         this.setState({message:res.data});
+        console.log(res.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+  }
+  onEditFormSubmit(id,event){
+    this.setState({editMessage:[]});
+    event.preventDefault();
+    let formData = new FormData();
+    formData.append('id', id);
+    formData.append('name', this.state.editName);
+    formData.append('description', this.state.editDescription);
+    formData.append('info', this.state.editInfo);
+    formData.append('number', this.state.editNumber);
+    formData.append('file', this.state.editFile);
+    formData.append('categories', this.state.editCategories);
+    axios.post('/update-product',formData,{ 'content-type': 'multipart/form-data' })
+    .then((res) => {
+        this.setState({editMessage:res.data});
         console.log(res.data);
     })
     .catch(function (error) {
@@ -111,6 +144,41 @@ export default class Account extends Component{
   onChangeCatAdd(e){
       this.setState({catAdd:e.target.value})
   }
+  ///Must remove other open forms so we attach only one event edit event handler.
+  editProduct(index,item){
+    this.setState({
+        editName:item["name"],
+        editDescription:item["description"],
+        editInfo:item["info"],
+        editNumber:item["number"],
+        editCategories:item["categories"]
+    })
+    let temp = this.state.isEditShow;
+    temp.forEach((item)=>{
+        item = false;
+    })
+    this.setState({isEditShow:temp});
+    temp[index] = true;
+    this.setState({isEditShow:temp});      
+  }
+  editName(e){
+    this.setState({editName:e.target.value})
+  }
+  editDescription(e){
+    this.setState({editDescription:e.target.value})
+  }
+  editInfo(e){
+    this.setState({editInfo:e.target.value})
+  }
+  editNumber(e){
+    this.setState({editNumber:e.target.value})
+  }
+  editCategories(e){
+    this.setState({editCategories:e.target.value})
+  }
+  editFile(e){
+    this.setState({editFile:e.target.files[0]})
+  }
   render() {
     let  lines = null;
     if(!isMounted){
@@ -152,13 +220,57 @@ export default class Account extends Component{
     }
     let prod = null;
     if(this.state.products !== null){
-        let listItems = this.state.products.map((item) =>
-            <li>
-                <span>{item["name"]}</span> <img src={item["file"]}/>
-            </li>
-        );
+        let listCat = null;
+        if(this.state.categories !== null){
+            listCat = this.state.categories.map((item) =>
+                <option>
+                    {item}
+                </option>
+            );
+        }
+        let index = 0;
+        let listItems = this.state.products.map((item) => {
+            index++;
+            let form = null;
+            if(this.state.isEditShow[index-1]){
+                form = (
+	                <form className={"account__admin__products__form"} onSubmit={this.onEditFormSubmit.bind(this,item["_id"])}>
+	                    <h2>Product Name</h2>
+	                    <input type="text" defaultValue={item["name"]} value={this.state.editName} onChange={this.editName.bind(this)}/>
+	                    <h2>Product Description</h2>   
+	                    <textarea rows="4" cols="50" type="text" defaultValue={item["description"]} value={this.state.editDescription} onChange={this.editDescription.bind(this)}/>
+
+                        <div>
+	                        <label for="">Product Categories(Multiple selection hold cmd or ctrl)</label>
+	                        <select name="" multiple = "multiple" size = {this.state.categories.length} defaultValue={item["categories"]} 
+                                 value={this.state.editCategories}
+                                 onChange={this.editCategories.bind(this)}>
+	                            {listCat}  
+	                        </select>
+                        </div>
+
+
+	                    <h2>Number of Products</h2>
+	                    <input type="number" defaultValue={item["number"]} value={this.state.editNumber} onChange={this.editNumber.bind(this)}/>
+	                    <h2>Product Info</h2>
+	                    <textarea rows="2" cols="50" type="text" defaultValue={item["info"]} value={this.state.editInfo} onChange={this.editInfo.bind(this)}/>      
+	                    <h2>Select your image</h2>
+	                    <input type="file" accept="image/*" placeholder={"Upload new photo if needed"}
+                            onChange={this.editFile.bind(this)}/>
+	                    <button type="submit">Upload Edit To Product</button>
+	                </form>
+                )
+            }
+            return (
+                <li>
+                    <span>{item["name"]}</span> <img src={item["file"]}/><button onClick={this.editProduct.bind(this,index-1,item)}>Show</button>
+                    {form}
+                </li>
+            )
+        });
         prod = (
             <article className="account__admin__products">
+                <h4>{this.state.editMessage}</h4>                
                 <ul>
                     {listItems}
                 </ul>
@@ -204,38 +316,38 @@ export default class Account extends Component{
             )
         });
         admin = (
-        <article className="account__admin">
-            <h1>Add A Product</h1>
-            {message}
-	        <form className="account__admin__addProducts" onSubmit={this.onFormSubmit.bind(this)}>
-	            <h2>Product Name</h2>
-	            <input placeholder="Shirt" type="text" onChange={this.onChangeName.bind(this)}/>
-	            <h2>Product Description</h2>   
-	            <textarea placeholder="A blue shirt with stripes" rows="4" cols="50" type="text" onChange={this.onChangeDes.bind(this)}/>
-                {cat}
-	            <h2>Number of Products</h2>
-	            <input placeholder="10" type="number" onChange={this.onChangeNumber.bind(this)}/>
-	            <h2>Product Info</h2>
-	            <textarea placeholder="size:10;colour:blue" rows="2" cols="50" type="text" onChange={this.onChangeInfo.bind(this)}/>      
-	            <h2>Select your image</h2>
-	            <input type="file" accept="image/*" onChange={this.onChangeFile.bind(this)}/>
-                <button type="submit">Upload</button>
-	        </form>
-            <br/>
-            <hr className="styleLine"/>
-            <br/>
-            <form className="account__admin__addCategory" onSubmit={this.onFormCategorySubmit.bind(this)}>
-                <h2 for="productCategory">Add Category</h2>
-                {messageCategory}
-                <input placeholder="Shirt" type="text" name="productCategory" onChange={this.onChangeCatAdd.bind(this)}/>
-                <button type="submit">Upload Category</button>
-            </form>
-            <br/>
-            <hr className="styleLine"/>
-            <br/>
-            <h1>Product List</h1>
-            {prod}
-        </article>
+	        <article className="account__admin">
+	            <h1>Add A Product</h1>
+	            {message}
+		        <form className="account__admin__addProducts" onSubmit={this.onFormSubmit.bind(this)}>
+		            <h2>Product Name</h2>
+		            <input placeholder="Shirt" type="text" onChange={this.onChangeName.bind(this)}/>
+		            <h2>Product Description</h2>   
+		            <textarea placeholder="A blue shirt with stripes" rows="4" cols="50" type="text" onChange={this.onChangeDes.bind(this)}/>
+	                {cat}
+		            <h2>Number of Products</h2>
+		            <input placeholder="10" type="number" onChange={this.onChangeNumber.bind(this)}/>
+		            <h2>Product Info</h2>
+		            <textarea placeholder="size:10;colour:blue" rows="2" cols="50" type="text" onChange={this.onChangeInfo.bind(this)}/>      
+		            <h2>Select your image</h2>
+		            <input type="file" accept="image/*" onChange={this.onChangeFile.bind(this)}/>
+	                <button type="submit">Upload</button>
+		        </form>
+	            <br/>
+	            <hr className="styleLine"/>
+	            <br/>
+	            <form className="account__admin__addCategory" onSubmit={this.onFormCategorySubmit.bind(this)}>
+	                <h2 for="productCategory">Add Category</h2>
+	                {messageCategory}
+	                <input placeholder="Shirt" type="text" name="productCategory" onChange={this.onChangeCatAdd.bind(this)}/>
+	                <button type="submit">Upload Category</button>
+	            </form>
+	            <br/>
+	            <hr className="styleLine"/>
+	            <br/>
+	            <h1>Product List</h1>
+	            {prod}
+	        </article>
         )
     }
     let name = null;

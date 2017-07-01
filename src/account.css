@@ -116,11 +116,20 @@ hr.styleLine:after {
     margin:10px;
 }
 
-account__admin__products > ul > li > img {
+.account__admin__products > ul > li > img {
     width:100px;
     height:100px;
     display:inline;
 }
+
+.account__admin__products > h4 {
+    color:black;
+}
+
+
+.account__admin__products__form {
+}
+
 
 .account__admin input, textarea {
     opacity: 0.25;
