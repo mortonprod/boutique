@@ -63,7 +63,7 @@ class App extends Component {
                 <Route path="/account" render={() => {return <Account auth={auth}/>}}/>
 	        </Switch>
 	    </Fade>
-        <Nav auth={auth} threshold={700}/>
+        <Nav auth={auth} thresholdX={700} thresholdY={30} />
         </div>
       </Router>
 

@@ -1,4 +1,5 @@
 ﻿import auth0 from 'auth0-js';
+import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
 
 let history = createHistory({
@@ -17,7 +18,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'mortonprod.eu.auth0.com',
     clientID: 'i92K1aH4gGRkkJagDPAAIjH0xmCX4A8S',
-    redirectUri: 'http://localhost:4000',
+    redirectUri: 'http://localhost:3000',
     audience: 'https://mortonprod.eu.auth0.com/userinfo',
     responseType: 'token id_token',
     scope: 'openid profile'
@@ -47,7 +48,7 @@ export default class Auth {
 	    localStorage.setItem('expires_at', expiresAt);
     }
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   logout() {
@@ -58,17 +59,24 @@ export default class Auth {
 	    localStorage.removeItem('expires_at');
     }
     // navigate to the home route
-    history.replace('/home');
+    history.replace('/');
   }
 
   getProfile(cb) {
-    if(typeof localStorage !=="undefined"){
+    if(typeof localStorage !=="undefined"){ //So we can render on the server
 	    if(localStorage.getItem('access_token') !==null){
 	        this.auth0.client.userInfo(localStorage.getItem('access_token'), (err, profile) => {
 	            if (profile) {
-	              this.userProfile = profile;
-	            }
-	            cb(err, profile);
+                    //Once we have the profile then add the name and email if it does not exist.
+                    //if it does exist then return the products bought and looked at and add to profile information.
+                    axios.post('/account',profile).then((res) => {
+                        this.userProfile = Object.assign(profile,res.data); 
+                        console.log("User profile: " + JSON.stringify(this.userProfile));
+                        cb(err, profile);
+                    }).catch((error)=>{
+                        this.userProfile = profile;
+                    }); 
+                }
 	        });
 	    }
     }
