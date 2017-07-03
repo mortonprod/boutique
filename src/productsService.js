@@ -1,6 +1,6 @@
 ﻿import axios from "axios";
 
-let productsServices = function(isCallAgain){ 
+let productsServices = (function(){ 
     categoriesStore = null;
     productsStore = null;
 	function init(){ 
@@ -28,7 +28,7 @@ let productsServices = function(isCallAgain){
             });
         }
     }
-    post(api,form,content){
+    function post(api,form,content){
         if(content){
 	        axios.post(api,form,content)
 	        .then((res) => {
@@ -49,14 +49,18 @@ let productsServices = function(isCallAgain){
 	        });
         }
     }
-    getProducts(){
+    function getProducts(isCallAgain){
 	    if(!categoriesStore || !productsStore || isCallAgain){
 	        return init()
 	    }else{
 	        return new Promise((resolve,reject) => {resolve({categories:categoriesStore,products:productsStore})})
 	    }
     }
-};
+    return {
+        post,
+        getProducts
+    }
+})();
 
 export default productsServices;
 
