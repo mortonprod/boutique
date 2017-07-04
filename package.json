@@ -29,7 +29,8 @@
       "/",
       "/about",
       "/account",
-			"/admin"
+			"/admin",
+			"/adminLogin"
     ],
     "exclude": [
       "/buy"
