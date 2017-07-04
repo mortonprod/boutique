@@ -16,17 +16,13 @@ let productsService = (function(){
                     });
 			    });
 		        Promise.all(catToProducts).then((categories) =>{
-		            let products = [];
-		            categories.map((el)=>{
-		                el.products.map((product)=>{
-		                    products.push(product);
-		                });
-		            });
-                    console.log("All Products " + JSON.stringify(products));
-                    categoriesStore = categories;
-                    productsStore = products;
-                    resolve({categories:categories,products:products})
-	            });
+	                axios.get("/products/").then((res) => {
+                        console.log("Products: " + JSON.stringify(res.data));
+	                    categoriesStore = categories;
+	                    productsStore = res.data;
+	                    resolve({categories:categories,products:res.data})
+	                });
+                });
 	        }).catch((res)=>{
                 categoriesStore = [];
                 productsStore = [];
