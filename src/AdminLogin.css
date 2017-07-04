@@ -1,7 +1,7 @@
 .adminLogin {
     font-family: Lobster-Regular;
     display:flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -15,13 +15,15 @@
     flex-direction:column;
 }
 
-.adminLogin__form > button {
-    margin:5px;
+.adminLogin button {
+    font-family: Lobster-Regular;
+    color:white;
+    margin: 5px;
     background: #EC2A7C;
     background: rgba(189,189,189,0.30);
     box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24);
     border-radius: 5px;
-    border-color:pink;
+    border-color: pink;
 }
 
 .adminLogin__form > input {
@@ -29,4 +31,32 @@
     margin: 5px;
     box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24);
     border-radius: 5px;
+}
+
+.tran-enter {
+    /*transform:translateX(0);*/
+    opacity: 0;
+    transform: scale(0);
+    transition: all 500ms ease-in;
+}
+
+.tran-enter.tran-enter-active {
+    /*transform: translateX(1000px);*/
+    opacity: 1;
+    transform: scale(1);
+    transition: all 500ms ease-in;
+}
+
+.tran-leave {
+    /*transform: translateX(-1000px);*/
+    opacity: 1;
+    transform: scale(1);
+    transition: all 500ms ease-in;
+}
+
+.tran-leave.tran-leave-active {
+    /*transform: translateX(0px);*/
+    opacity: 0;
+    transform: scale(0);
+    transition: all 500ms ease-in;
 }
