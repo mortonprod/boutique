@@ -10,9 +10,10 @@
     color:white;
 }
 
-.adminLogin__form{
-    display:flex;
-    flex-direction:column;
+
+.adminLogin__form {
+    display: flex;
+    flex-direction: column;
 }
 
 .adminLogin button {
