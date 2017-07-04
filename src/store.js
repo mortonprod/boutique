@@ -19,11 +19,13 @@ import ProductsMoveUp from "./ProductsMoveUp";
 
 let isMounted= false;
 export default class Store extends Component {
+    childWidth =200;
     constructor(){
         super();
         //Must throttle the scroll events so we do not lose any like debounce.
         this.scroll = _.throttle(this.scroll,10);
-        this.state = {translateY:0}
+        this.state = {translateY:0,data:null}
+
     }
     componentDidMount(){
         isMounted = true;
@@ -56,6 +58,28 @@ export default class Store extends Component {
                 />
             )
         }
+        let categories = null;
+        let moveUp =null;
+        if(this.props.products){
+            let all = null;
+	        categories = this.props.products.map((cat)=>{
+	            all = all.concat(cat.data.items);
+	            return (
+	                <Products title={cat.title} childWidth={220} products={cat.data.items}/>
+	            )
+	        });
+            moveUp = (
+	            <ProductsMoveUp 
+	                title={"Everything We Have"} 
+	                childWidth={220} 
+	                data={all}
+	            />
+            )
+        }else{
+            categories = (
+                <p>loading</p>
+            )
+        }   
 	    return (
 		    <section className="store">
 				 <Helmet>
@@ -64,20 +88,7 @@ export default class Store extends Component {
 				</Helmet>
                 {storeTitle}  
                 <div className="store__content">
-	                <header>
-	                    <h1>Check out the latest offers</h1>
-	                </header>
-                    <Products title={""} childWidth={220} data={getData().offers}/>
-                <Products title={"What other were interested in"} childWidth={220} data={getData().data0} api={"/others"} defaultNum={10}/>
-                <Products title={"Underwear"} childWidth={220} data={getData().data1}/>
-                <Products title={"Accessories"} childWidth={220} data={getData().data2}/>
-                <Products title={"Clothes"} childWidth={220} data={getData().data3}/>
-                <ProductsMoveUp 
-                    title={"Everything We Have"} 
-                    childWidth={220} 
-                    data={getData().data}
-                />
-                    <ProductSearch/>
+                    {categories}
                 </div>
 		    </section>
 	    )
