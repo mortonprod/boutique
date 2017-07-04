@@ -126,9 +126,8 @@ export default class Admin extends Component{
 		    editNumber:item["number"],
 		    editCategories:item["categories"]
 		})
-		let temp = this.state.isEditShow;
-		temp.forEach((item)=>{
-		    item = false;
+		let temp = this.state.isEditShow.map((item)=>{
+            return false;
 		})
 		this.setState({isEditShow:temp});
 		temp[index] = true;
@@ -169,14 +168,15 @@ export default class Admin extends Component{
 		        let form = null;
 		        if(this.state.isEditShow[index-1]){
 		            form = (
-		                <form className={"account__admin__products__form"} onSubmit={this.onEditFormSubmit.bind(this,item["_id"])}>
+		                <form className={""} onSubmit={this.onEditFormSubmit.bind(this,item["_id"])}>
+                            <img src={item["file"]}/>
 		                    <h2>Product Name</h2>
 		                    <input required type="text" defaultValue={item["name"]} value={this.state.editName} onChange={this.editName.bind(this)}/>
 		                    <h2>Product Description</h2>   
 		                    <textarea required rows="4" cols="50" type="text" defaultValue={item["description"]} value={this.state.editDescription} onChange={this.editDescription.bind(this)}/>
 
 		                    <div>
-		                        <label for="">Product Categories(Multiple selection hold cmd or ctrl)</label>
+		                        <h2>Product Categories</h2>
 		                        <select required name="" multiple = "multiple" size = {this.state.products.length} defaultValue={item["categories"]} 
 		                             value={this.state.editCategories}
 		                             onChange={this.editCategories.bind(this)}>
@@ -190,26 +190,30 @@ export default class Admin extends Component{
 		                    <h2>Product Info</h2>
 		                    <textarea required rows="2" cols="50" type="text" defaultValue={item["info"]} value={this.state.editInfo} onChange={this.editInfo.bind(this)}/>      
 		                    <h2>Select your image</h2>
-		                    <input required type="file" accept="image/*" placeholder={"Upload new photo if needed"}
+		                    <input type="file" accept="image/*" placeholder={"Upload new photo if needed"}
 		                        onChange={this.editFile.bind(this)}/>
 		                    <button type="submit">Upload Edit To Product</button>
 		                </form>
 		            )
-		        }
+		        }else{
+                    form = (
+                        <div className={"admin__list"}>
+                            <h3>{item["name"]}</h3> <img src={item["file"]}/><button onClick={this.editProduct.bind(this,index-1,item)}>Show</button>
+                        </div>
+                    )
+                }
 		        return (
 		            <li>
-		                <span>{item["name"]}</span> <img src={item["file"]}/><button onClick={this.editProduct.bind(this,index-1,item)}>Show</button>
 		                {form}
 		            </li>
 		        )
 		    });
 		    prod = (
-		        <article className="account__admin__products">
+		        <article className="admin__products">
 		            <h4>{this.state.editMessage}</h4>                
 		            <ul>
 		                {listItems}
 		            </ul>
-		            <button>Hide Products</button>
 		        </article>
 		    )
 		}else{
@@ -220,7 +224,7 @@ export default class Admin extends Component{
 	    
 	    let cat = (
 	        <div>
-	            <label for="productCategories">Product Categories(Multiple selection hold cmd or ctrl)</label>
+	            <h2>Product Categories</h2>
 	            <select required name="productCategories" multiple = "multiple" size = {this.state.categories.length} onChange={this.onChangeCat.bind(this)}>
 	                {listCat}
 	            </select>
@@ -241,10 +245,10 @@ export default class Admin extends Component{
 	        )
 	    });
 	    let admin = (
-	        <article className="account__admin">
+	        <article className="admin__box">
 	            <h1>Add A Product</h1>
 	            {message}
-	            <form className="account__admin__addProducts" onSubmit={this.onFormSubmit.bind(this)}>
+	            <form onSubmit={this.onFormSubmit.bind(this)}>
 	                <h2>Product Name</h2>
 	                <input required placeholder="Shirt" type="text" onChange={this.onChangeName.bind(this)}/>
 	                <h2>Product Description</h2>   
@@ -253,7 +257,7 @@ export default class Admin extends Component{
 	                <h2>Number of Products</h2>
 	                <input required placeholder="10" type="number" onChange={this.onChangeNumber.bind(this)}/>
 	                <h2>Product Info</h2>
-	                <textarea required placeholder="size:10;colour:blue" rows="2" cols="50" type="text" onChange={this.onChangeInfo.bind(this)}/>      
+	                <textarea required placeholder="size:10; colour:blue" rows="2" cols="50" type="text" onChange={this.onChangeInfo.bind(this)}/>      
 	                <h2>Select your image</h2>
 	                <input required type="file" accept="image/*" onChange={this.onChangeFile.bind(this)}/>
 	                <button type="submit">Upload</button>
@@ -261,7 +265,7 @@ export default class Admin extends Component{
 	            <br/>
 	            <hr className="styleLine"/>
 	            <br/>
-	            <form className="account__admin__addCategory" onSubmit={this.onFormCategorySubmit.bind(this)}>
+	            <form className="" onSubmit={this.onFormCategorySubmit.bind(this)}>
 	                <h2 for="productCategory">Add Category</h2>
 	                {messageCategory}
 	                <input required placeholder="Shirt" type="text" name="productCategory" onChange={this.onChangeCatAdd.bind(this)}/>
@@ -275,7 +279,7 @@ export default class Admin extends Component{
 	        </article>
 	    )
 		return (
-		  <section className="account">
+		  <section className="admin">
 		    <h1>Administration</h1>
 		    {admin}
 		  </section>

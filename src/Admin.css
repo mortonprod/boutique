@@ -1,0 +1,111 @@
+﻿.admin {
+    text-align: center;
+    font-family: Lobster-Regular;
+    color:white;
+}
+.admin > h1 {
+    margin-top: 0;
+    font-size: 10vw;
+}
+.admin__list{
+    border:solid;
+}
+
+.admin__box {
+    font-family: Lobster-Regular;
+    color: #EC2A7C;
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    background: #FFFFFF;
+    border: 1px solid #979797;
+    box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
+    text-align: center;
+}
+
+.admin__box > h1 {
+    font-size: 7vw;
+    margin: 10px;
+}
+
+.admin__box > form {
+    list-style: none;
+}
+
+.admin__box  img {
+    width: 100px;
+    height: 100px;
+}
+
+
+
+.admin__box input, textarea {
+    opacity: 0.25;
+    background-image: linear-gradient(-180deg, #F754B3 100%, #EC2A7C 100%);
+    border: 1px solid #979797;
+    box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    width: 50%;
+}
+
+.admin__box h4,h3 {
+    color: black;
+}
+
+
+.admin__box input::placeholder, textarea::placeholder {
+    color: white;
+}
+
+
+input:hover, textarea:hover {
+    opacity: 1;
+}
+
+.admin__box h2 {
+    font-family: Lobster-Regular;
+    font-size: 4vw;
+    color: #AD002E;
+    margin: auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.admin__box button {
+    font-family: Lobster-Regular;
+    color: white;
+    background: #EC2A7C;
+    box-shadow: 2px -2px 2px 0 rgba(0,0,0,0.12);
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 5px;
+    display: block;
+}
+
+.admin__products >ul{
+    list-style:none;
+    padding:0;
+    
+}
+.admin__products {
+    width:90%;
+    margin:auto;
+}
+
+.admin__products > ul > li {
+    border: 1px solid #979797;
+    box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
+}   
+.admin__list {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.admin__list > img{
+    margin:auto;
+}
