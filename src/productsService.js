@@ -1,53 +1,53 @@
 ﻿import axios from "axios";
 
-let productsServices = (function(){ 
-    categoriesStore = null;
-    productsStore = null;
+let productsService = (function(){ 
+    let categoriesStore = null;
+    let productsStore = null;
 	function init(){ 
-        axios.get('/categories').then((res) => {
-		    let categories = res.data;
-		    let catToProducts = categories.map((cat)=> {
-		        axios.get("/products/" + cat).then((res) => {
-	                return new Promise((resolve,reject) =>{resolve(res.data)});
-		        });
-		    });
-	        return new Promise.all(catToProducts).then((data) =>{
-	            let categories = null;
-	            let products = null;
-	            categories = data;
-	            data.map((el)=>{
-	                el.products.map((product)=>{
-	                    products.push(product);
-	                });
+        return new Promise((resolve,reject)=>{
+	        axios.get('/categories').then((res) => {
+			    let categories = res.data;
+			    let catToProducts = categories.map((cat)=> {
+                    return new Promise((resolve,reject) => {
+				        axios.get("/products/" + cat).then((res) => {
+	                        console.log("Category and product: " + cat + "  " + JSON.stringify(res.data));
+			                resolve(res.data);
+				        });
+                    });
+			    });
+		        Promise.all(catToProducts).then((categories) =>{
+		            let products = [];
+		            categories.map((el)=>{
+		                el.products.map((product)=>{
+		                    products.push(product);
+		                });
+		            });
+                    console.log("All Products " + JSON.stringify(products));
+                    categoriesStore = categories;
+                    productsStore = products;
+                    resolve({categories:categories,products:products})
 	            });
-	            return new Promise((resolve,reject)=>{
-	                categoriesStore = categories;
-	                productsStore = products; 
-	                resolve({categories:categories,products:products});
-	            })
-            });
-        }
+	        }).catch((res)=>{
+                categoriesStore = [];
+                productsStore = [];
+                resolve({categories:[],products:[]});
+	        })
+        });
     }
     function post(api,form,content){
-        if(content){
-	        axios.post(api,form,content)
-	        .then((res) => {
-	            return Promise((resolve,reject)=>{resolve(res.data)});
-	            console.log(res.data);
-	        }).catch((res)=>{
-	            return Promise((resolve,reject)=>{resolve("Error connecting to server")});
-	        });
-        }else{
-	        axios.post(api,form)
-	        .then((res) => {
-	            return Promise((resolve,reject)=>{resolve(res.data)});
-	            console.log(res.data);
-	        })
-	        .catch(function (error) {
-                return Promise((resolve,reject)=>{resolve("Error connecting to server")})
-	            console.log(error);
-	        });
-        }
+        return new Promise((resolve,reject) =>{
+	        if(content){
+	            axios.post(api,form,content).then((res) => {
+		            resolve(res.data)
+		            console.log("Message from post: " + JSON.stringify(res.data));
+                });
+	        }else{
+		        axios.post(api,form).then((res) => {
+                    resolve(res.data)
+                    console.log("Message from post: " + JSON.stringify(res.data));
+                });;
+	        }
+        });
     }
     function getProducts(isCallAgain){
 	    if(!categoriesStore || !productsStore || isCallAgain){
@@ -62,5 +62,5 @@ let productsServices = (function(){
     }
 })();
 
-export default productsServices;
+export default productsService;
 
