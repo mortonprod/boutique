@@ -28,7 +28,8 @@
     "include": [
       "/",
       "/about",
-      "/account"
+      "/account",
+			"/admin"
     ],
     "exclude": [
       "/buy"
