@@ -1,0 +1,32 @@
+.adminLogin {
+    font-family: Lobster-Regular;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    color:white;
+}
+
+.adminLogin__form{
+    display:flex;
+    flex-direction:column;
+}
+
+.adminLogin__form > button {
+    margin:5px;
+    background: #EC2A7C;
+    background: rgba(189,189,189,0.30);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24);
+    border-radius: 5px;
+    border-color:pink;
+}
+
+.adminLogin__form > input {
+    text-align:center;
+    margin: 5px;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24);
+    border-radius: 5px;
+}
