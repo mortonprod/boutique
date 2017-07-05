@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
 import Vivus from 'vivus';
 import linesUnder from "./assets/linesUnderline.svg";
 import productsService from "./productsService";
@@ -27,7 +28,8 @@ export default class Admin extends Component{
 		    editCategories:null,
 		    editNumber:null,
 		    editFile:null,
-		    editMessage:[]
+		    editMessage:[],
+            isSignIn:false
 
 		}
 	}
@@ -52,10 +54,14 @@ export default class Admin extends Component{
 		formData.append('description', this.state.des);
 		formData.append('info', this.state.info);
 		formData.append('number', this.state.num);
+        formData.append('price', this.state.price);
 		formData.append('file', this.state.file);
 		formData.append('categories', this.state.cat);
         productsService.post('/product',formData, { 'content-type': 'multipart/form-data' })
 		.then((message) => {
+            if(message.length === 1 && message[0].includes("Need to sign in to admin")){
+                this.setState({isSignIn:true});
+            }
 		    this.setState({message:message});
             console.log("Message in submit: " + JSON.stringify(message));
             this.getProducts.bind(this)();
@@ -70,10 +76,14 @@ export default class Admin extends Component{
 		formData.append('description', this.state.editDescription);
 		formData.append('info', this.state.editInfo);
 		formData.append('number', this.state.editNumber);
+        formData.append('price', this.state.editPrice);
 		formData.append('file', this.state.editFile);
 		formData.append('categories', this.state.editCategories);
         productsService.post('/update-product',formData, { 'content-type': 'multipart/form-data' })
         .then((message) => {
+            if(message.length === 1 && message[0].includes("Need to sign in to admin")){
+                this.setState({isSignIn:true});
+            }
             this.setState({editMessage:message});
             console.log("Message in admin: " + JSON.stringify(message));
             this.getProducts.bind(this)();
@@ -84,6 +94,9 @@ export default class Admin extends Component{
         event.preventDefault();
         productsService.post('/product-delete',{id:id})
         .then((message) => {
+            if(message.length === 1 && message[0].includes("Need to sign in to admin")){
+                this.setState({isSignIn:true});
+            }
             this.setState({editMessage:message});
             console.log("Message from delete in admin: " + JSON.stringify(message));
             this.getProducts.bind(this)();
@@ -94,6 +107,9 @@ export default class Admin extends Component{
         event.preventDefault();
         productsService.post('/category-delete',{productCategory:this.state.catAdd})
         .then((message) => {
+            if(message.length === 1 && message[0].includes("Need to sign in to admin")){
+                this.setState({isSignIn:true});
+            }
             this.setState({messageCategory:message});
             console.log("Message from delete in admin: " + JSON.stringify(message));
             this.getProducts.bind(this)();
@@ -104,6 +120,9 @@ export default class Admin extends Component{
 		event.preventDefault();
         productsService.post('/category',{productCategory:this.state.catAdd})
         .then((message) => {
+            if(message.length === 1 && message[0].includes("Need to sign in to admin")){
+                this.setState({isSignIn:true});
+            }
             this.setState({messageCategory:message});
             console.log("Message in admin: " + JSON.stringify(message));
             this.getProducts.bind(this)();
@@ -118,6 +137,9 @@ export default class Admin extends Component{
 	onChangeNumber(e){
 	    this.setState({num:e.target.value})
 	}
+    onChangePrice(e){
+        this.setState({price:e.target.value})
+    }
 	onChangeDes(e){
 	    this.setState({des:e.target.value})
 	}
@@ -165,6 +187,9 @@ export default class Admin extends Component{
 	editNumber(e){
 	    this.setState({editNumber:e.target.value})
 	}
+    editPrice(e){
+        this.setState({editPrice:e.target.value})
+    }
 	editCategories(e){
 	    this.setState({editCategories:e.target.value})
 	}
@@ -207,6 +232,10 @@ export default class Admin extends Component{
 
 		                    <h2>Number of Products</h2>
 		                    <input required type="number" defaultValue={item["number"]} value={this.state.editNumber} onChange={this.editNumber.bind(this)}/>
+
+                            <h2>Price</h2>
+                            <input required type="number" defaultValue={item["price"]} value={this.state.editPrice} onChange={this.editPrice.bind(this)}/>
+
 		                    <h2>Product Info</h2>
 		                    <textarea required rows="2" cols="50" type="text" defaultValue={item["info"]} value={this.state.editInfo} onChange={this.editInfo.bind(this)}/>      
 		                    <h2>Select your image</h2>
@@ -276,6 +305,11 @@ export default class Admin extends Component{
 	                {cat}
 	                <h2>Number of Products</h2>
 	                <input required placeholder="10" type="number" onChange={this.onChangeNumber.bind(this)}/>
+
+                    <h2>Price</h2>
+                    <input required type="number" placeholder="10" value={this.state.onChangePrice} onChange={this.onChangePrice.bind(this)}/>
+
+
 	                <h2>Product Info</h2>
 	                <textarea required placeholder="size:10; colour:blue" rows="2" cols="50" type="text" onChange={this.onChangeInfo.bind(this)}/>      
 	                <h2>Select your image</h2>
@@ -299,11 +333,17 @@ export default class Admin extends Component{
 	            {prod}
 	        </article>
 	    )
-		return (
-		  <section className="admin">
-		    <h1>Administration</h1>
-		    {admin}
-		  </section>
-		);
+        if(!this.state.isSignIn){
+			return (
+			  <section className="admin">
+			    <h1>Administration</h1>
+			    {admin}
+			  </section>
+			);
+        }else{
+            return (
+                <Redirect to={"/admin-login"} push={true}/>
+            );
+        }
     }
 }

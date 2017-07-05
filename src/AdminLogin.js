@@ -18,7 +18,7 @@ export default class AdminLogin extends Component {
     onSubmit(event){
         this.setState({message:[]});
         event.preventDefault();
-        if(this.state.isUpdate){
+        if(!this.state.isUpdate){
 	        productsService.post('/admin-login',{password:this.state.password})
 	        .then((messages) => {
                 let isRedirect = false
@@ -29,14 +29,12 @@ export default class AdminLogin extends Component {
                 }
 	            this.setState({messages:messages,isRedirect:isRedirect});
 	            console.log("Message in admin login result: " + JSON.stringify(messages));
-	            this.getProducts.bind(this)();
 	        });
         }else{
             productsService.post('/admin-update',{password:this.state.password,passwordUpdate:this.state.passwordUpdate})
             .then((messages) => {
                 this.setState({messages:messages});
                 console.log("Message in admin update result: " + JSON.stringify(messages));
-                this.getProducts.bind(this)();
             });
         }
     }
@@ -51,7 +49,10 @@ export default class AdminLogin extends Component {
             )
         }
         let messages = this.state.messages.map((item)=>{
-            <h4 key={item}>{item}</h4>
+            console.log("Errors: " + item);
+            return (
+                <h4 key={item}>{item}</h4>
+            )
         });
         if(!this.state.isRedirect){
 			return (
