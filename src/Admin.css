@@ -50,8 +50,8 @@
     width: 50%;
 }
 
-.admin__box h4,h3 {
-    color: black;
+.admin__box h4, h3 {
+    color: #AD002E;
 }
 
 
@@ -97,7 +97,13 @@ input:hover, textarea:hover {
 .admin__products > ul > li {
     border: 1px solid #979797;
     box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
-}   
+}
+
+.admin__products > select{
+    margin:auto;
+    width:20%;
+    text-align:center;
+}
 .admin__list {
     text-align: center;
     display: flex;
@@ -107,5 +113,7 @@ input:hover, textarea:hover {
 }
 
 .admin__list > img{
+    height:100px;
+    width:auto;
     margin:auto;
 }

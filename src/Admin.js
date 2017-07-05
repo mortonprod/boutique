@@ -79,6 +79,26 @@ export default class Admin extends Component{
             this.getProducts.bind(this)();
         });
 	}
+    onDelete(id,event){
+        this.setState({editMessage:[]});
+        event.preventDefault();
+        productsService.post('/product-delete',{id:id})
+        .then((message) => {
+            this.setState({editMessage:message});
+            console.log("Message from delete in admin: " + JSON.stringify(message));
+            this.getProducts.bind(this)();
+        });
+    }
+    onDeleteCat(event){
+        this.setState({messageCategory:[]});
+        event.preventDefault();
+        productsService.post('/category-delete',{productCategory:this.state.catAdd})
+        .then((message) => {
+            this.setState({messageCategory:message});
+            console.log("Message from delete in admin: " + JSON.stringify(message));
+            this.getProducts.bind(this)();
+        });
+    }
 	onFormCategorySubmit(event){
 		this.setState({messageCategory:[]});
 		event.preventDefault();
@@ -170,6 +190,7 @@ export default class Admin extends Component{
 		            form = (
 		                <form className={""} onSubmit={this.onEditFormSubmit.bind(this,item["_id"])}>
                             <img src={item["file"]}/>
+                            <button onClick={this.onDelete.bind(this,item["_id"])}>Delete Item</button>
 		                    <h2>Product Name</h2>
 		                    <input required type="text" defaultValue={item["name"]} value={this.state.editName} onChange={this.editName.bind(this)}/>
 		                    <h2>Product Description</h2>   
@@ -177,8 +198,7 @@ export default class Admin extends Component{
 
 		                    <div>
 		                        <h2>Product Categories</h2>
-		                        <select required name="" multiple = "multiple" size = {this.state.products.length} defaultValue={item["categories"]} 
-		                             value={this.state.editCategories}
+		                        <select required name="" multiple = "multiple" size = {this.state.categories.length} 
 		                             onChange={this.editCategories.bind(this)}>
 		                            {listCat}  
 		                        </select>
@@ -204,13 +224,13 @@ export default class Admin extends Component{
                 }
 		        return (
 		            <li>
+                        <h4>{this.state.editMessage}</h4>
 		                {form}
 		            </li>
 		        )
 		    });
 		    prod = (
-		        <article className="admin__products">
-		            <h4>{this.state.editMessage}</h4>                
+		        <article className="admin__products">                
 		            <ul>
 		                {listItems}
 		            </ul>
@@ -270,6 +290,7 @@ export default class Admin extends Component{
 	                {messageCategory}
 	                <input required placeholder="Shirt" type="text" name="productCategory" onChange={this.onChangeCatAdd.bind(this)}/>
 	                <button type="submit">Upload Category</button>
+                    <button onClick={this.onDeleteCat.bind(this)}>Delete Category</button>
 	            </form>
 	            <br/>
 	            <hr className="styleLine"/>
