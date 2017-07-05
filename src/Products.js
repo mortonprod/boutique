@@ -3,10 +3,8 @@
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 import * as _ from "lodash";
 import Product from "./Product";
-import axios from 'axios';
 import "./Products.css";
 export default class Products extends Component {
-    data = null;
     constructor(props){
         super(props);
         this.state = {
@@ -16,10 +14,6 @@ export default class Products extends Component {
             end:100,
             direction:""
         }
-        axios.get(this.props.api + "/0" +  "/" + this.props.defaultNum).then((res) => {
-            
-       });
-        this.data = _.clone(this.props.data);
     }
     componentDidMount() {
 
@@ -39,32 +33,30 @@ export default class Products extends Component {
         let numNow = this.state.end -  this.state.start;
         //New end = old end - (difference between old and new number of boxes.)
         let end = this.state.end - (numNow - this.getNumBoxes());
-        //if(end > this.props.data.length){
-        //    end = this.props.data.length;
-        //}
-
         this.setState({ 
             start:this.state.start,
             end:end,
             direction:"moveUp" 
         });
     }
+    componentWillUpdate(){
+
+    }
     getNumBoxes(){
-        if(Math.floor(window.innerWidth/this.props.childWidth) < this.props.data.length){
+        if(Math.floor(window.innerWidth/this.props.childWidth) < this.props.products.length){
             let fitNum = Math.floor(window.innerWidth/this.props.childWidth)
             return fitNum;
         }else{
-            return this.props.data.length;
+            return this.props.products.length;
         }
 
     }
     moveLeft(){
         let newStart = this.state.start+this.getNumBoxes();
         let newEnd = this.state.end+this.getNumBoxes();
-        if(newEnd > this.data.length){//If we have reach then end then fill up array.
-            for(let i = 0; i < this.props.data.length;i++){
-                this.data.push(this.props.data[i]);
-            }
+        if(newEnd > this.props.products.length){//If we have reach then end then fill up array.
+            newStart = 0;
+            newEnd = this.getNumBoxes()
         }
 
         this.setState({ 
@@ -87,15 +79,10 @@ export default class Products extends Component {
     moveRight(){
         let newStart = this.state.start-this.getNumBoxes();
         let newEnd = this.state.end-this.getNumBoxes();
-        if(newStart < 0){//If we have reach then end then fill up array.
-            let length = this.props.data.length;
-            for(let i = 0; i < length;i++){
-                this.data.unshift(this.props.data[(length -1) - i]);
-            }
-            newStart = newStart + length;
-            newEnd = newEnd + length;
+        if(newStart < 0){
+            newStart = this.props.products.length -  this.getNumBoxes();
+            newEnd = this.props.products.length;
         }
-
         this.setState({ 
             width: this.state.width, 
             height: this.state.height,
@@ -165,11 +152,11 @@ export default class Products extends Component {
             items.push(
                 <Product
                     key={i} 
-                    src={this.data[i].pic}
-                    title={this.data[i].title}
-                    description={this.data[i].description}
-                    price={this.data[i].price}
-                    info={this.data[i].info}
+                    src={this.props.products[i].file}
+                    title={this.props.products[i].name}
+                    description={this.props.products[i].description}
+                    price={this.props.products[i].price}
+                    info={this.props.products[i].info}
                     >
                 </Product>
             )
@@ -188,18 +175,17 @@ export default class Products extends Component {
              className="products">
                 <div className="products__box"> 
                     <header>
-                        <h2 className="products__box__title"> {this.props.title} </h2>
+                        <h2 className="products__title"> {this.props.title} </h2>
                     </header>
-                    <div className={"products__box__items__list"}>    
+                    <div className={"products__list"}>    
 	                    <ReactCSSTransitionGroup
-	                        className="products__box__items__list"
 	                        transitionName={this.state.direction}
 	                        transitionEnterTimeout={500}
 	                        transitionLeaveTimeout={500}>
 	                        {items}
 	                    </ReactCSSTransitionGroup> 
-	                    <button onClick = {this.moveLeft.bind(this)} className={"products__box__items__button products__box__items__button__left"  }> </button>
-	                    <button onClick = {this.moveRight.bind(this)} className={"products__box__items__button products__box__items__button__right" }> </button>
+	                    <button onClick = {this.moveLeft.bind(this)} className={"products__button products__button__left"  }> </button>
+	                    <button onClick = {this.moveRight.bind(this)} className={"products__button products__button__right" }> </button>
                     </div>
                 </div>
                   
