@@ -7,10 +7,41 @@ import * as _ from "lodash";
 import menu from './assets/menu.svg';
 import AccountLink from "./AccountLink";
 
-
+import {
+  ShareButtons,
+  ShareCounts,
+  generateShareIcon
+} from 'react-share';
 import "./nav.css"
 
 import ListLink from "./ListLink";
+
+const {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+  PinterestShareButton,
+  VKShareButton,
+  OKShareButton,
+  RedditShareButton,
+} = ShareButtons;
+
+const {
+  FacebookShareCount,
+  GooglePlusShareCount,
+  LinkedinShareCount,
+  PinterestShareCount,
+  VKShareCount,
+  OKShareCount,
+  RedditShareCount,
+} = ShareCounts;
+
+const FacebookIcon = generateShareIcon('facebook');
+const GooglePlusIcon = generateShareIcon('google');
+const TwitterIcon = generateShareIcon('twitter');
 
 
 export default class Nav extends Component{
@@ -92,6 +123,16 @@ export default class Nav extends Component{
                     <h2> Boutique </h2>
                   </header>
                   <ListLink list={["Home","about","more"]}/>
+
+                  <FacebookShareButton url={"http://github.com"} title={"Boutique store"} >
+                    <FacebookIcon size={32} round />
+                  </FacebookShareButton>
+                  <GooglePlusShareButton url={"http://github.com"} title={"Boutique store"} >
+                    <GooglePlusIcon size={32} round />
+                  </GooglePlusShareButton>
+                  <TwitterShareButton url={"http://github.com"} title={"Boutique store"} >
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
                   <div className={"nav__account"}>
                     <AccountLink auth={this.props.auth}/>
                   </div>
