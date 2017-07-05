@@ -8,8 +8,9 @@ import ProductSearch from "./productSearch";
 import Vivus from 'vivus';
 
 
-import Products from "./Products";
 import * as _ from "lodash";
+import productsService from "./productsService";
+import Products from "./Products";
 import "./store.css";
 
 
@@ -24,12 +25,17 @@ export default class Store extends Component {
         super();
         //Must throttle the scroll events so we do not lose any like debounce.
         this.scroll = _.throttle(this.scroll,10);
-        this.state = {translateY:0,data:null}
+        this.state = {translateY:0,data:null,categories:null,products:null}
 
     }
     componentDidMount(){
         isMounted = true;
         window.addEventListener('scroll', this.scroll.bind(this));
+        productsService.getProducts(true).then((data)=>{
+            this.setState({categories:data.categories,products:data.products});
+            console.log(JSON.stringify(data));
+            
+        });
     }
     scroll(event){
         let scrollTop = -1*event.srcElement.body.scrollTop*this.props.speed;
@@ -60,19 +66,21 @@ export default class Store extends Component {
         }
         let categories = null;
         let moveUp =null;
-        if(this.props.products){
-            let all = null;
-	        categories = this.props.products.map((cat)=>{
-	            all = all.concat(cat.data.items);
-	            return (
-	                <Products title={cat.title} childWidth={220} products={cat.data.items}/>
-	            )
+        if(this.state.categories){
+	        categories = this.state.categories.map((cat)=>{
+                if(cat.products.length !==0){
+		            return (
+		                <Products title={cat.name} childWidth={220} products={cat.products}/>
+		            )
+                }else{
+                    return null;
+                }
 	        });
             moveUp = (
 	            <ProductsMoveUp 
 	                title={"Everything We Have"} 
 	                childWidth={220} 
-	                data={all}
+	                data={this.state.products}
 	            />
             )
         }else{
@@ -89,6 +97,7 @@ export default class Store extends Component {
                 {storeTitle}  
                 <div className="store__content">
                     {categories}
+                    {moveUp}
                 </div>
 		    </section>
 	    )
