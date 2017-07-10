@@ -68,8 +68,8 @@ export default class ProductsMoveUp extends Component {
             items.push(
                 <Product
                     key={i} 
-                    src={this.props.data[i].pic}
-                    title={this.props.data[i].title}
+                    src={this.props.data[i].file}
+                    title={this.props.data[i].name}
                     description={this.props.data[i].description}
                     price={this.props.data[i].price}
                     info={this.props.data[i].info}
