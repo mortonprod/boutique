@@ -6,6 +6,7 @@ import * as _ from "lodash";
 
 import menu from './assets/menu.svg';
 import AccountLink from "./AccountLink";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 
 import {
   ShareButtons,
@@ -13,6 +14,7 @@ import {
   generateShareIcon
 } from 'react-share';
 import "./nav.css"
+import "./share.css";
 
 import ListLink from "./ListLink";
 
@@ -97,7 +99,7 @@ export default class Nav extends Component{
         let comp = null;
         if(this.state.isButton){
             comp = (
-                <img 
+                <img key={"button"} 
                     onClick= { () =>{
                         let isButton = true;
                         if(this.state.isButton){
@@ -110,7 +112,7 @@ export default class Nav extends Component{
             )
         }else{
             comp = (
-                <div
+                <div key={"header"}
                     onClick={()=>{
                         let isButton = true;
                         if(this.state.isButton){
@@ -119,31 +121,56 @@ export default class Nav extends Component{
                         this.setState({isButton:isButton})
                     }} 
                     className={"nav__box " + show}>
-                  <header>
-                    <h2> Boutique </h2>
-                  </header>
-                  <ListLink list={["Home","about","more"]}/>
+					<h2> Boutique </h2>
+					<div className={"nav__links"}>
+                        <ListLink list={["Home","about","more"]}/>
+					</div>
+					<div className={"nav__share"}>
+						<Share title={"Share"} 
+							facebook={{url:"github.com",title:"boutique"}}
+							google={{url:"github.com",title:"boutique"}}
+							twitter={{url:"github.com",title:"boutique"}}
+                        />
 
-                  <FacebookShareButton url={"http://github.com"} title={"Boutique store"} >
-                    <FacebookIcon size={32} round />
-                  </FacebookShareButton>
-                  <GooglePlusShareButton url={"http://github.com"} title={"Boutique store"} >
-                    <GooglePlusIcon size={32} round />
-                  </GooglePlusShareButton>
-                  <TwitterShareButton url={"http://github.com"} title={"Boutique store"} >
-                    <TwitterIcon size={32} round />
-                  </TwitterShareButton>
-                  <div className={"nav__account"}>
-                    <AccountLink auth={this.props.auth}/>
-                  </div>
-              </div>
+					</div>
+					<div className={"nav__account"}>
+                        <AccountLink auth={this.props.auth}/>
+                    </div>
+
+                </div>
 
             )
         }
         return (
             <nav className={"nav"}>
-                {comp}
+		        <ReactCSSTransitionGroup
+		            transitionName={"nav__tran"}
+		            transitionEnterTimeout={500}
+		            transitionLeaveTimeout={500}>
+		            {comp}
+		        </ReactCSSTransitionGroup> 
             </nav>
         )
     }
 }
+
+function Share(props){
+    return (
+        <div className={"share"}>
+			<h4>{props.title}</h4>
+			<FacebookShareButton url={props.facebook.url} title={props.facebook.title} >
+			    <FacebookIcon size={32} round />
+			</FacebookShareButton>
+			<GooglePlusShareButton url={props.facebook.url} title={props.google.title} >
+			    <GooglePlusIcon size={32} round />
+			</GooglePlusShareButton>
+			<TwitterShareButton url={props.twitter.url} title={props.twitter.title} >
+			    <TwitterIcon size={32} round />
+	        </TwitterShareButton>
+        </div>
+    )
+}
+
+
+
+

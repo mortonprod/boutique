@@ -1,0 +1,17 @@
+.share{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:center;
+    height:100%;
+    width:100%;
+}
+
+.share > div {
+    transform: scale(1);
+    transition: all 1s;
+}
+
+.share > div:hover {
+    transform: scale(1.2);
+}

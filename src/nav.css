@@ -6,9 +6,10 @@
     position: fixed;
     width: 50px;
     height: auto;
-    top: 5px;
+    top: 20px;
     left: 5px;
     transform: translateY(-200px);
+    transition: all 1s;
     opacity: 0;
 }
 
@@ -26,6 +27,7 @@
     transition: all 1s;
     transform: translateY(-200px);
     z-index: 15;
+    padding:5px;
 }
 
 .nav__box a {
@@ -41,24 +43,35 @@
     transform: translateY(0px);
 }
 
-.nav__box > header{
-    height:60px;
-}
 
 
-.nav__box > header > h2 {
+.nav__box > h2 {
     font-family: Lobster-Regular;
+    margin-top:0;
     font-size: 40px;
     color: #DD0900;
     width: 200px;
-    height: 100px;
-    margin-left: 50px;
-    margin-right: 50px;
     display: inline;
+    text-align:center;
 }
 
 .nav__account{
-    width:30%;
+    width:100px;
+}
+
+.nav__links{
+    padding-top:5px;
+    width:250px;
+}
+
+.nav__share {
+    width: 250px;
+    margin-top:12px;
+}
+
+.nav__account {
+    width: 250px;
+    margin: 10px;
 }
 
 @media screen and (max-width: 700px) {
@@ -70,5 +83,27 @@
     .nav__account {
         width: 250px;
     }
+}
+
+
+.nav__tran-enter {
+    transform: translateX(-300px);
+    transition: all 500ms ease-in;
+}
+
+.nav__tran-enter.nav__tran-enter-active {
+    transform: translateX(0px);
+    transition: all 500ms ease-in;
+}
+
+
+.nav__tran-leave {
+    transform: translateX(0px);
+    transition: all 500ms ease-in;
+}
+
+.nav__tran-leave.nav__tran-leave-active {
+    transform: translateX(-300px);
+    transition: all 500ms ease-in;
 }
 

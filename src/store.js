@@ -14,7 +14,7 @@ import Products from "./Products";
 import "./store.css";
 
 
-import getData from "./productsData";
+
 
 import ProductsMoveUp from "./ProductsMoveUp";
 
