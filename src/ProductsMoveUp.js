@@ -18,35 +18,31 @@ export default class ProductsMoveUp extends Component {
         }else{
             end = this.getNumBoxes();
         }
-        this.state = {num:end}
+        this.state = {end:end}
     }
     scroll(event){
         if(this.parentDiv !== null){
 	        let space = this.parentDiv.getBoundingClientRect().bottom - window.innerHeight;
 	        console.log("space: " +  space);
-	        let num = this.getNumBoxes(); 
-	        if(space < 10 && this.props.data.length - this.state.num > 0){//If more data show it.
-	            if(this.props.data.length - this.state.num > num){//If more data than group then show group number
-	                for(let i = 0; i < num; i++ ){
+	        let num = this.getNumBoxes();
+            if(space < 500){
+		        if(this.props.data.length - this.state.end >= num){//If can fill a whole row then do it.
+			        for(let i = 0; i < num; i++ ){
+			            setTimeout(function(){
+			                this.setState({end:this.state.end + 1});
+			            }.bind(this),500*i);
+			        }        
+	            }else{//Otherwise just take the last of the data
+	                for(let i = 0; i < this.props.data.length - this.state.end; i++ ){
 	                    setTimeout(function(){
-	                        this.setState({num:this.state.num + 1});
+	                        this.setState({end:this.state.end + 1});
 	                    }.bind(this),500*i);
-
-	                }
-	            }else if(space < 500 && this.props.data.length - this.state.num > 0 ) {//Only take what is left
-	                let finalPictures = this.props.data.length - this.state.num;
-	                for(let i = 0; i < finalPictures; i++ ){
-	                    setTimeout(function(){
-	                        this.setState({num:this.state.num + 1});
-	                    }.bind(this),500*i);
-	                }
-	            }else{
-	                console.log("Got them all.")
+	                } 
 	            }
-	        }
+            }
         }
-
     }
+
     componentDidMount(){
         window.addEventListener('scroll', this.scroll.bind(this));
     }
@@ -57,14 +53,11 @@ export default class ProductsMoveUp extends Component {
         return Math.floor(window.innerWidth/this.props.childWidth);
     }
     render(){
-        let total = 0;
         let items = [];
-        if(this.state.num > this.props.data.length){ //Make sure we do not ask for more than we have.
-            total = this.props.data.length
-        }else{
-            total = this.state.num
-        }
-        for (let i = 0; i < this.state.num; i++) {
+        for (let i = 0; i < this.state.end; i++) {
+            if(!this.props.data[i] || !this.props.data[i].file || !this.props.data[i].name || !this.props.data[i].description || !this.props.data[i].price || !this.props.data[i].info){
+                continue;
+            }
             items.push(
                 <Product
                     key={i} 

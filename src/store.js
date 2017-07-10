@@ -18,52 +18,41 @@ import "./store.css";
 
 import ProductsMoveUp from "./ProductsMoveUp";
 
-let isMounted= false;
 export default class Store extends Component {
+    isRun = true;
     childWidth =200;
     constructor(){
         super();
         //Must throttle the scroll events so we do not lose any like debounce.
         this.scroll = _.throttle(this.scroll,10);
         this.state = {translateY:0,data:null,categories:null,products:null}
-
-    }
-    componentDidMount(){
-        isMounted = true;
-        window.addEventListener('scroll', this.scroll.bind(this));
         productsService.getProducts(true).then((data)=>{
             this.setState({categories:data.categories,products:data.products});
             console.log(JSON.stringify(data));
-            
         });
+    }
+    componentDidMount(){
+        window.addEventListener('scroll', this.scroll.bind(this));
     }
     scroll(event){
         let scrollTop = -1*event.srcElement.body.scrollTop*this.props.speed;
         this.setState({translateY:scrollTop});
 
     }
-    //getNumBoxes(){
-    //    return Math.floor(window.innerWidth/this.props.childWidth);
-    //}
     render(){
-        let  storeTitle = null;
-        if(!isMounted){
-            storeTitle = (
-                <object style={{transform:'translateY(' + this.state.translateY + 'px)'}}
-                    src={storeSvg} 
-                    ref={() => {
-                        new Vivus("store",{duration:"2000",start:"autostart",file:storeSvg}); 
-                    }} 
-                    className="store__title" id="store">
-                </object>
-            )
-        }else{
-            storeTitle = (
-                <img style={{transform:'translateY(' + this.state.translateY + 'px)'}}
-                    src={storeSvg} className={"store__title"} alt="chose"
-                />
-            )
-        }
+		let storeTitle = (
+		        <object style={{transform:'translateY(' + this.state.translateY + 'px)'}}
+		            src={storeSvg} 
+		            ref={() => {
+		                if(this.isRun){
+		                    new Vivus("store",{duration:"2000",start:"autostart",file:storeSvg}); 
+		                }
+		                this.isRun=false;
+		            }} 
+		            className="store__title" id="store">
+		        </object>
+        )
+
         let categories = null;
         let moveUp =null;
         if(this.state.categories){

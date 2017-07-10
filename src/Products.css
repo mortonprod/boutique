@@ -32,12 +32,17 @@
 
 .products__list {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-content: center;
     overflow: hidden;
     margin: auto;
     height:200px;
+}
+
+.products__items {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
 }
 
 .products__button {

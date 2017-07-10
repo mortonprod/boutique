@@ -166,19 +166,20 @@ export default class Products extends Component {
         }
         return (
             <article 
-            onTouchStart={(event)=> { event.persist(); this.start(event) }}
-            onTouchMove={(event)=> { event.persist();   this.move(event) }}
-            onTouchEnd={(event)=> { event.persist();   this.end(event) }}
-            onMouseDown={(event)=> { event.persist();  this.start(event) }}
-            onMouseMove={(event)=> { event.persist();   this.move(event) }}
-            onMouseUp={(event)=> { event.persist();  this.end(event) }}
+            onTouchStart={(event)=> { event.persist(); event.preventDefault(); this.start(event) }}
+            onTouchMove={(event)=> { event.persist(); event.preventDefault();   this.move(event) }}
+            onTouchEnd={(event)=> { event.persist(); event.preventDefault();  this.end(event) }}
+            onMouseDown={(event)=> { event.persist(); event.preventDefault(); this.start(event) }}
+            onMouseMove={(event)=> { event.persist(); event.preventDefault();  this.move(event) }}
+            onMouseUp={(event)=> { event.persist(); event.preventDefault();  this.end(event) }}
              className="products">
                 <div className="products__box"> 
                     <header>
                         <h2 className="products__title"> {this.props.title} </h2>
                     </header>
                     <div className={"products__list"}>    
-	                    <ReactCSSTransitionGroup
+	                    <ReactCSSTransitionGroup 
+                            className={"products__items"}
 	                        transitionName={this.state.direction}
 	                        transitionEnterTimeout={500}
 	                        transitionLeaveTimeout={500}>

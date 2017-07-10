@@ -4,10 +4,10 @@
 
 .nav__button {
     position: fixed;
-    width: 50px;
+    width: 30px;
     height: auto;
     top: 20px;
-    left: 5px;
+    left: 30px;
     transform: translateY(-200px);
     transition: all 1s;
     opacity: 0;
@@ -79,9 +79,6 @@
         flex-direction:column;
         width:300px;
         text-align:center;
-    }
-    .nav__account {
-        width: 250px;
     }
 }
 
