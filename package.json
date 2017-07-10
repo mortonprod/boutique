@@ -11,6 +11,7 @@
     "react-dom": "^15.6.1",
     "react-paypal-express-checkout": "^1.0.1",
     "react-router-dom": "^4.1.1",
+    "react-share": "^1.15.0",
     "vivus": "^0.4.1"
   },
   "devDependencies": {
@@ -19,8 +20,8 @@
     "react-snapshot": "^1.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && react-snapshot ",
+    "start": "NODE_ENV=development react-scripts start",
+    "build": "NODE_ENV=production react-scripts build && react-snapshot ",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -29,8 +30,8 @@
       "/",
       "/about",
       "/account",
-			"/admin",
-			"/adminLogin"
+      "/admin",
+      "/adminLogin"
     ],
     "exclude": [
       "/buy"
