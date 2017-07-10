@@ -1,5 +1,9 @@
 ﻿import axios from "axios";
-
+let getData = null
+if(process.env.NODE_ENV === "development"){
+    getData = require("./productsData").default;
+    console.log("GetData " + JSON.stringify(getData()));
+}
 let productsService = (function(){ 
     let categoriesStore = null;
     let productsStore = null;
@@ -46,11 +50,17 @@ let productsService = (function(){
         });
     }
     function getProducts(isCallAgain){
-	    if(!categoriesStore || !productsStore || isCallAgain){
-	        return init()
-	    }else{
-	        return new Promise((resolve,reject) => {resolve({categories:categoriesStore,products:productsStore})})
-	    }
+        if(getData){
+            return new Promise((resolve,reject) => {
+                resolve({categories:getData().categories,products:getData().products})
+            });
+        }else{
+		    if(!categoriesStore || !productsStore || isCallAgain){
+		        return init()
+		    }else{
+		        return new Promise((resolve,reject) => {resolve({categories:categoriesStore,products:productsStore})})
+		    }
+        }
     }
     return {
         post,
