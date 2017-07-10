@@ -43,7 +43,7 @@ hr.styleLine:after {
     width: 100%;
 }
 
-.account__profile {
+.profile {
     position: relative;
     text-align: center;
     padding-left: 10px;
@@ -53,12 +53,12 @@ hr.styleLine:after {
     flex-wrap: wrap;
 }
 
-.account__profile__img{
+.profile__img{
     width:100px;
     height:100px;
     margin:10px;
 }
-.account__profile__info {
+.profile__info {
     text-align: center;
     width: 90%;
     margin: auto;
@@ -67,23 +67,23 @@ hr.styleLine:after {
     box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
 }
 
-.account__profile__info > h1, h3 {
+.profile__info > h1, h3 {
     font-family: Lobster-Regular;
     color: white;
     font-size: 5vw;
 }
 
-.account__profile__info > h3 {
+.profile__info > h3 {
     font-size:3.5vw;
 }
 
-.account__profile__info__products__title{
+.profile__title{
     text-align:center;
     position:relative;
     margin:auto;
 }
 
-.account__profile__info__products__title >h2 {
+.profile__title >h2 {
     position:absolute;
     top:25%;
     left:5%;
@@ -92,94 +92,13 @@ hr.styleLine:after {
     font-size:3.5vw;
 }
 
-.account__profile__info__products__title__image{
+.profile__image{
     width:50%;
     padding:10px;
     margin:auto;
     
 }
 
-.account__admin {
-    font-family: Lobster-Regular;
-    color: #EC2A7C;
-    width: 90%;
-    margin: auto;
-    margin-top: 10px;
-    background: #FFFFFF;
-    border: 1px solid #979797;
-    box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
-    text-align:center;
-}
-
-.account__admin > h1 {
-    font-size:7vw;
-    margin:10px;
-}
-
-.account__admin__products > ul > li > img {
-    width:100px;
-    height:100px;
-    display:inline;
-}
-
-.account__admin__products > h4 {
-    color:black;
-}
-
-
-.account__admin__products__form {
-}
-
-
-.account__admin input, textarea {
-    opacity: 0.25;
-    background-image: linear-gradient(-180deg, #F754B3 100%, #EC2A7C 100%);
-    border: 1px solid #979797;
-    box-shadow: 2px -2px 4px 0 rgba(0,0,0,0.50);
-    border-radius: 8px;
-    color: white;
-    text-align: center;
-    width: 50%;
-}
-
-.account__admin >h4 {
-    color:black;
-
-}
-
-.account__admin__addCategory > h4 {
-    color: black;
-}
-
-
-.account__admin input::placeholder, textarea::placeholder {
-    color: white;
-}
-
-
-input:hover, textarea:hover {
-    opacity:1;
-}
-
-.account__admin h2 {
-    font-family: Lobster-Regular;
-    font-size: 4vw;
-    color: #AD002E;
-    margin: auto;
-    margin-bottom: 5px;
-    margin-top: 5px;
-}
-
-.account__admin button {
-    font-family: Lobster-Regular;
-    color: white;
-    background: #EC2A7C;
-    box-shadow: 2px -2px 2px 0 rgba(0,0,0,0.12);
-    border-radius: 5px;
-    margin: auto;
-    margin-top:5px;
-    display: block;
-}
 
 @media screen and (min-width: 700px) {
     .flex{

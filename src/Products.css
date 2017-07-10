@@ -18,12 +18,9 @@
     margin: 10px;
     /*touch-action: pan-x pan-y;*/
 }
+
 .products__title {
     width: 100vw;
-    height: 50vh;
-}
-
-.products__box__title {
     font-family: FjallaOne-Regular;
     font-size: 40px;
     color: #FFFFFF;
@@ -33,7 +30,7 @@
     text-align: center;
 }
 
-.products__box__items__list {
+.products__list {
     position: relative;
     display: flex;
     justify-content: center;
@@ -43,7 +40,7 @@
     height:200px;
 }
 
-.products__box__items__button {
+.products__button {
     position: absolute;
     opacity: 0;
     border: 0;
@@ -53,28 +50,28 @@
     background-color: transparent;
     font-size: 25px;
 }
-.products__box__items__button__left {
+.products__button__left {
     left: 10px;
 }
 
-.products__box__items__button__left:after {
+.products__button__left:after {
     content: "\003c\003c\003c";
 }
 
-.products__box__items__button__right {
+.products__button__right {
     right: 10px;
 }
 
-.products__box__items__button__right:after {
+.products__button__right:after {
     content: "\003e\003e\003e";
 }
 
 
-.products__box__items__list:hover > .products__box__items__button__right {
+.products__list:hover > .products__button__right {
     animation: flash 1s infinite;
 }
 
-.products__box__items__list:hover > .products__box__items__button__left {
+.products__list:hover > .products__button__left {
     animation: flash 1s infinite;
 }
 
