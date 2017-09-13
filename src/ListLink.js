@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import "./ListLink.css";
 
 export default function ListLink(props){
-    let listComp = props.list.map(function(item){
+    let listComp = props.list.map(function(item,i){
         let link = null;
         if(item === "Home" || item === "home"){
             link = "";
@@ -12,7 +12,7 @@ export default function ListLink(props){
             link = item;
         }
         return (
-            <li><Link to={"/" + link} >{item}</Link></li>
+            <li key={i}><Link to={"/" + link} >{item}</Link></li>
         )
     });
     return (    

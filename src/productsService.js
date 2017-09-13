@@ -2,8 +2,11 @@
 let getData = null
 if(process.env.NODE_ENV === "development"){
     getData = require("./productsData").default;
-    console.log("GetData " + JSON.stringify(getData()));
+    console.log("Get products from bundle: " + JSON.stringify(getData()));
+}else{
+    console.log("Get products from public directory");
 }
+
 let productsService = (function(){ 
     let categoriesStore = null;
     let productsStore = null;

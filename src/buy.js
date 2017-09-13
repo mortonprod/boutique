@@ -100,7 +100,6 @@ export default class Buy extends Component {
 		            <h3>
 		                {this.props.location.state.price}
 		            </h3>
-	                <button onClick = {()=>{}} className={"buy__button" }> </button>
                     <PaypalExpressBtn env={'sandbox'} client={client} currency={'USD'} total={5.00} />
                 </div>
             )

@@ -6,17 +6,14 @@ import {
   Switch
 } from 'react-router-dom'
 import * as _ from "lodash";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
-
+import { RouteTransition } from 'react-router-transition';
 import Auth from "./auth";
-
 import Chose from "./chose";
-
 import Store from "./store";
-
 import Buy from "./buy";
 import About from "./about";
 import Nav from "./nav";
+import Admin from "./Admin";
 
 import Eye from "./eye";
 
@@ -33,7 +30,7 @@ const handleAuthentication = (nextState, replace) => {
     auth.handleAuthentication();
   }
 }
-class App extends Component {
+export default class App extends Component {
   constructor(){
     super();
     this.state = {isDown:false,isNavButton:false};
@@ -44,49 +41,41 @@ class App extends Component {
   render() {
     return (
 
-     <Router>
-        <div className="app">
-	    <Fade>
-	        <Switch>
-	            <Route exact path="/" 
-                    render={
-                        (props)=>{
-                            handleAuthentication(props);
-                            return <Store {...props}/>
-                        }
-                    }
-                />
-	            <Route path="/about" component={About}/>
-                <Route path="/buy" render={(props) => {return <Buy auth={auth} {...props}/>}}/>
-                <Route path="/more" component={Chose}/>
-                <Route path="/headshop" component={Eye}/>
-                <Route path="/account" render={() => {return <Account auth={auth}/>}}/>
-	        </Switch>
-	    </Fade>
-        <Nav auth={auth} thresholdX={700} thresholdY={30} />
-        </div>
-      </Router>
+		<Router>
+            <Route component={Content}/>
+        </Router>       
 
     );
   }
 }
-//<Route path="/buy" component={Buy}/>
-export default App;
 
-class Fade extends Component {
-
-    render() {
-        return (
-            <Route render={({location}) => (
-                <ReactCSSTransitionGroup
-                    transitionName="tran"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={500}
-                >
-                    {React.cloneElement(this.props.children, {location: location, key: location.key})}
-                </ReactCSSTransitionGroup>
-            )}/>
-        );
-    }
+let Content = ({ match, location, history })=>{
+    return(
+        <div className="app">
+            <RouteTransition 
+              pathname={location.pathname}
+              atEnter={{ opacity: 0}} 
+              atLeave={{ opacity: 0}} 
+              atActive={{ opacity: 1}} 
+            > 
+                <Switch>
+                    <Route exact path="/" 
+                        render={
+                            (props)=>{
+                                handleAuthentication(props);
+                                return <Store {...props}/>
+                            }
+                        }
+                    />
+                    <Route path="/about" component={About}/>
+                    <Route path="/buy" render={(props) => {return <Buy auth={auth} {...props}/>}}/>
+                    <Route path="/more" component={Chose}/>
+                    <Route path="/headshop" component={Eye}/>
+                    <Route path="/admin" component={Admin}/>
+                    <Route path="/account" render={() => {return <Account auth={auth}/>}}/>
+                </Switch>
+            </RouteTransition>
+            <Nav auth={auth} thresholdX={700} thresholdY={30} />
+        </div>
+    )
 }
-//{React.cloneElement(this.props.children, {location: location, key: location.key})}

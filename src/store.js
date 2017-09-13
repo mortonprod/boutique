@@ -1,22 +1,19 @@
-﻿
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
+import {Link} from 'react-router-dom'
 import lines from './assets/lines.svg';
 import storeSvg from './assets/store.svg';
 import Helmet from 'react-helmet';
-import ProductSearch from "./productSearch";
-
 import Vivus from 'vivus';
-
-
 import * as _ from "lodash";
 import productsService from "./productsService";
-import Products from "./Products";
+
+import Products from "@mortonprod/react-products-component";
+import "@mortonprod/react-products-component/dist/index.css";
+
+import ProductsMoveUp from "@mortonprod/react-product-up-component";
+import "@mortonprod/react-product-up-component/dist/index.css";
+
 import "./store.css";
-
-
-
-
-import ProductsMoveUp from "./ProductsMoveUp";
 
 export default class Store extends Component {
     isRun = true;
@@ -56,22 +53,23 @@ export default class Store extends Component {
         let categories = null;
         let moveUp =null;
         if(this.state.categories){
-	        categories = this.state.categories.map((cat)=>{
+	        categories = this.state.categories.map((cat,i)=>{
                 if(cat.products.length !==0){
 		            return (
-		                <Products title={cat.name} childWidth={220} products={cat.products}/>
+		                <Products key={i} title={cat.name} childWidth={220} products={cat.products}/>
 		            )
                 }else{
                     return null;
                 }
 	        });
             moveUp = (
-	            <ProductsMoveUp 
-	                title={"Everything We Have"} 
-	                childWidth={220} 
-	                data={this.state.products}
-	            />
-            )
+                <ProductsMoveUp 
+                    title={"Everything We Have"} 
+                    childWidth={220} 
+                    data={this.state.products}
+                />
+            ) 
+
         }else{
             categories = (
                 <p>loading</p>
@@ -85,6 +83,17 @@ export default class Store extends Component {
 				</Helmet>
                 {storeTitle}  
                 <div className="store__content">
+                    <div className="store__deals">
+                        <div className="store__dealsInfo">
+                            <h1>
+                                Check out the latest deals
+                            </h1>
+                            <h2>
+                                For a limited time only
+                            </h2>           
+                            <p>*Selected lines only</p>
+                        </div>
+                    </div>
                     {categories}
                     {moveUp}
                 </div>
