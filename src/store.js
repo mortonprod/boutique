@@ -14,31 +14,26 @@ import ProductsMoveUp from "@mortonprod/react-product-up-component";
 import "@mortonprod/react-product-up-component/dist/index.css";
 
 import "./store.css";
+import "./grid.css";
 
 export default class Store extends Component {
     isRun = true;
+    info = null;
     childWidth =200;
-    constructor(){
-        super();
-        //Must throttle the scroll events so we do not lose any like debounce.
-        this.scroll = _.throttle(this.scroll,10);
-        this.state = {translateY:0,data:null,categories:null,products:null}
+    constructor(props){
+        super(props);
+        this.state = {data:null,categories:null,products:null}
         productsService.getProducts(true).then((data)=>{
             this.setState({categories:data.categories,products:data.products});
             console.log(JSON.stringify(data));
         });
+        this.info = infoBuilder(props.info.list,props.info.layout)
     }
     componentDidMount(){
-        window.addEventListener('scroll', this.scroll.bind(this));
-    }
-    scroll(event){
-        let scrollTop = -1*event.srcElement.body.scrollTop*this.props.speed;
-        this.setState({translateY:scrollTop});
-
     }
     render(){
 		let storeTitle = (
-		        <object style={{transform:'translateY(' + this.state.translateY + 'px)'}}
+		        <object
 		            src={storeSvg} 
 		            ref={() => {
 		                if(this.isRun){
@@ -81,8 +76,11 @@ export default class Store extends Component {
 					 <title>Boutique Store</title>
 					<meta name="description" content="Online boutique store based in Helensburgh " />
 				</Helmet>
-                {storeTitle}  
+                {storeTitle}
                 <div className="store__content">
+                    <div className="grid-container outline">
+                        {this.info}
+                    </div>
                     <div className="store__deals">
                         <div className="store__dealsInfo">
                             <h1>
@@ -103,7 +101,76 @@ export default class Store extends Component {
 }
 
 Store.defaultProps = {
-    speed:0.5
+    speed:0.5,
+    info:{
+        layout:[[2,2,2],[3,3]],
+        list:[
+            {
+                pic:null,
+                title: "Free Delivery",
+                paragraphs: ["On orders over 35 pounds we provide free delivery."],
+                link: null
+            },
+            {
+                pic:null,
+                title: "Discreet Packaging",
+                paragraphs: ["Plain and secure.","Discreet delivery and purchase","No mention of product in bank statements","Inconspicuous packaging"],
+                link: null
+            },
+            {
+                pic:null,
+                title: "Free returns",
+                paragraphs: ["We will accept anything which is not up to your high standards."],
+                link: null
+            },
+            {
+                pic:null,
+                title: "Always ready to help",
+                paragraphs: ["Contact us at ?."],
+                link: null
+            },
+            {
+                pic:null,
+                title: "A small boutique store. ",
+                paragraphs: ["We decide on the best products for you."],
+                link: null
+            }
+        ]
+    }
+}
+/**
+ * Will take in a pic, title, paragraphs and a link to more information and produce a react jsx output.
+ * It loops through each row and fills the information in. 
+ * The number of columns in a row must be a total of 6. So we pass this as an array of column sizes.
+ * [[6],[2,2,2],[3,3]] 
+ */
+function infoBuilder(info,rows){
+    let output = [];
+    let counter = 0;
+    for(let i=0; i <  rows.length ; i++){//Loop through each row.
+        let col = [];
+        for(let j=0; j <  rows[i].length ; j++){//Loop through each column.    
+            const paragraphs = info[counter].paragraphs.map((ek,k)=>{
+                return (
+                    <p>{ek}</p>
+                )
+            });
+            col.push(
+                <div className={"col-"+rows[i][j]}>
+                    <img src={info[counter].pic} alt={"info"}/>
+                    <h1> {info[counter].title} </h1>
+                    {paragraphs}
+                </div> 
+            )
+            counter++; //Increment for each element in info which is a single column.
+        };
+        output.push(
+            <div className="row">
+                {col}
+            </div>
+        )
+    }
+    return output;
 }
 
 

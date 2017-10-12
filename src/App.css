@@ -10,15 +10,6 @@ body{
     background-image: linear-gradient(-180deg, #EC2A7C 47%, #D41346 100%);
 }
 
-.showNav {
-    opacity: 1;
-    transform: translateY(0px);
-}
-
-
-
-
-
 
 .app__info{
     position:relative;
@@ -81,17 +72,6 @@ body{
     height: auto;
 }
 
-
-.nav--moveIn{
-    transform:translate(0px);
-    transition: all 0.5s ease-out;
-}
-
-@media screen and (min-width: 480px) {
-    .nav {
-        width: 300px;
-    }
-}
 
 .tran-enter {
     /*transform:translateX(0);*/
